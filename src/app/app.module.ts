@@ -50,7 +50,6 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
   declarations: [
     AppComponent,
     HomeComponent,
-    RootComponent,
     NotFoundComponent,
     PrizesComponent,
     RulesComponent,

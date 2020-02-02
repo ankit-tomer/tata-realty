@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { MenuComponent } from './components/menu/menu.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { RootComponent } from './components/root/root.component';
 
 
 
 @NgModule({
   declarations: [
     MenuComponent,
-    HeaderComponent
+    HeaderComponent,
+    RootComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { AppRoutingModule } from '../app-routing.module';
   ],
   exports: [
     MenuComponent,
-    HeaderComponent
+    HeaderComponent,
+    RootComponent
   ]
 })
 export class SharedModule { }
