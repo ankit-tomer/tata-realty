@@ -43,13 +43,7 @@ export class SignUpComponent implements OnInit {
     const appVerifier = this.windowRef.recaptchaVerifier;
     const phoneNumberString = '+91' + this.user.phone;
 
-    this.userService.getUserByPhone(this.user.phone).snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(users => {
+    this.userService.getUserByPhone(this.user.phone).valueChanges().subscribe(users => {
       if (users.length > 0) {
         this.toastrService.error('Your phone no is already registered with us.', 'Sign Up');
       }
