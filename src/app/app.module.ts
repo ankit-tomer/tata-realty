@@ -14,7 +14,6 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 import { HomeComponent } from './pages/home/home.component';
-import { RootComponent } from './shared/components/root/root.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { PipeModule } from './modules/pipe/pipe.module';
 import { PrizesComponent } from './pages/prizes/prizes.component';
@@ -24,9 +23,10 @@ import { WinnersComponent } from './pages/winners/winners.component';
 import { AboutComponent } from './pages/about/about.component';
 import { HowToPlayComponent } from './pages/how-to-play/how-to-play.component';
 import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component';
-import { SharedModule } from './shared/shared.module';
 
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { RootComponent } from './shared/components/root/root.component';
+import { SharedModule } from './shared/shared.module';
 
 // const firebaseUiAuthConfig: firebaseui.auth.Config = {
 //   signInFlow: 'popup',
@@ -50,7 +50,6 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
   declarations: [
     AppComponent,
     HomeComponent,
-    RootComponent,
     NotFoundComponent,
     PrizesComponent,
     RulesComponent,
@@ -58,7 +57,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     WinnersComponent,
     AboutComponent,
     HowToPlayComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    RootComponent
   ],
   imports: [
     BrowserModule,
@@ -73,8 +73,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     }),
     FormsModule,
     PipeModule,
-    SharedModule,
-    SlickCarouselModule
+    SlickCarouselModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
