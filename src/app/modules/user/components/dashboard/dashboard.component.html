@@ -17,7 +17,7 @@
   <div class="container">
     <div class="logo_main text-center">
       <a routerLink="/">
-        <img src="/tata-realty/assets/img/main_logo.png" class="img-fluid" alt="">
+        <img src="assets/img/PhoneChhodoDilJodo.svg" class="img-fluid" alt="">
       </a>
     </div>
     <div class="main row" *ngIf="group.key">
@@ -34,7 +34,7 @@
         </div>
       </div>
       <div class="col-10 offset-1">
-        <p class="yu_regi_txt" style="opacity: 0">You registered Successfully!</p>
+        <p class="yu_regi_txt" style="opacity: 0;height:10px;margin-bottom:0;">You registered Successfully!</p>
         <form class="row regist_form" (ngSubmit)="onSubmit()" ngNativeValidate>
           <div class="form-group col-12" *ngFor="let member of groupMembers">
             <div class="name_prefilled form-control">{{ member.name }}</div>
@@ -53,7 +53,7 @@
             <button type="button" class="verify_btn" (click)="onPlay()">
               Play Now <i class="fa fa-caret-right"></i>
             </button>
-            <p>&nbsp;</p>
+            <p style="margin-bottom:0;">&nbsp;</p>
           </div>
           <div class="col-12 theme_blue text-center">
             <p class="invi_txt">Invite more member to your group</p>

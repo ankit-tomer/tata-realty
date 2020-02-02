@@ -48,9 +48,10 @@ header{
 	width:100%;
 	top:0;
 	left:0;
-	height:50px;
-	z-index: 999;
+	height:64px;
+	z-index: 99;
 	padding:10px;
+	background: #face48;
 }
 
 .regi_bg{
@@ -102,13 +103,13 @@ header{
 .logo_main{
 	width: 91px;
     margin: auto;
-    margin-top: 52px;
+    margin-top: 72px;
     margin-bottom: 25px;
 }
 
 .logo_home{
-	width:120px;
-	margin-top: 54px;
+	/* width:120px; */
+	margin-top: 62px;
 }
 
 .logo_right{
@@ -127,14 +128,23 @@ header{
 
 .menu_cover{
 	position: fixed;
-	z-index: 9999;
+	z-index: 9;
 	width: 100%;
 	min-height: 100vh;
 	top:0;
 	left:101%;
 	padding-top: 60px;
-	background: rgba(254, 206, 49, 0.48);
+	background: #face48;
 	 transition: all 0.5s ease;
+}
+
+.menu_copyr{
+	font-size:10px;
+	margin-top: 10px;
+	text-decoration: none;
+	color:#000;
+	text-align: center;
+	display: block;
 }
 
 .menu_cover.active{
@@ -143,21 +153,25 @@ header{
 
 .menu_cover ul {
 	display: block;
+	padding:0;
 }
 
 .menu_cover ul li{
 	display: block;
 }
 
-.menu_cover a.close_me{
-	position: absolute;top:60px;
-	color:#000;
-	left:15px;
-	font-size: 20px;
+header a.close_me{
+	position: absolute;
+    top: -10px;
+    color: #000;
+    right: 0;
+    font-size: 25px;
+	display:none;
 }
 
 .menu_cover ul li a{
-	padding: 30px;
+	height: 10vh;
+    line-height: 10vh;
 	width: 100%;
 	display: block;
 	color: #fff;
@@ -171,10 +185,10 @@ header{
 	position: absolute;
 	width:10px;
 	height:5px;
-	top:-15px;
+	top:0;
 	bottom:0;
 	left:50px;
-	margin: auto;
+	/* margin: auto; */
 }
 
 .menu_cover ul li:nth-child(1) a{
@@ -204,6 +218,9 @@ header{
 .menu_cover ul li:nth-child(7) a{
 	background: #d35301;
 }
+.menu_cover ul li:nth-child(8) a{
+	background: #face49;
+}
 
 .main_slider{
 	margin-bottom: 0;
@@ -229,6 +246,7 @@ header{
 
 .main_slider .txt{
 	padding:0 30px;
+	margin-top: -68px;
 }
 .get_start{
 	background: red;
@@ -237,10 +255,17 @@ header{
 	border-radius: 50px;
 	padding: 7px 20px; 
 	font-size: 18px;
-	margin-left: 10px;
-	margin-top: 0px;
+	margin-left: 0px;
+	margin-top: 10px;
 	position: relative;
 	display: inline-block;
+}
+
+.of_white_bg{
+	background: rgba(255, 255, 255, 0.52);
+    padding: 5px;
+	border-radius: 50px;
+	margin-top: 10px;
 }
 
 .verify_btn{
@@ -327,6 +352,11 @@ header{
 	color:#00a8af;
 	padding-left: 20px;
 	padding-top: 8px;
+}
+
+
+div.form-control{
+	border-radius: 50px;
 }
 
 .form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -463,7 +493,7 @@ header{
 
 
 .regi_fami_patch{
-	margin-bottom: 10px;
+	margin-bottom: 18px;
 }
 
 .leader_fam_patch{
