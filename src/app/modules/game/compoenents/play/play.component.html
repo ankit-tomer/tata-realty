@@ -1,0 +1,82 @@
+<div id="preloader_cov">
+    <div class="inner">
+        <div class="preloader_bar">
+            <!-- <div class="preloader_circle"></div>
+     <p>Loading</p> -->
+            <!-- <img src="./assets/img/animated-horse-gif-45.gif" class="img-fluid" alt=""> -->
+        </div>
+    </div>
+</div>
+
+<app-menu></app-menu>
+
+<div class="wrapper regi_bg">
+    
+    <app-header></app-header>
+
+    <div class="container">
+        <div class="logo_main text-center">
+            <a routerLink="/">
+              <img src="/tata-realty/assets/img/main_logo.png" class="img-fluid" alt="">
+            </a>
+          </div>
+        <div class="main row">
+            <div class="family_patch regi_fami_patch col-10 offset-1">
+                <div class="inner">
+                    <div class="img_cov" style=" background: url(./assets/img/male_profile.jpg) no-repeat 100% 100%; 
+                   -webkit-background-size: cover;
+                   -moz-background-size: cover;
+                   -o-background-size: cover;
+                   background-size: cover;">
+                    </div>
+                    <p class="name"><span>{{ group.name }}</span> <br /><span> 48:43:51</span> </p>
+                    <span class="numb pull-right">09<sup>th</sup></span>
+                </div>
+            </div>
+            <div class="col-10 offset-1">
+                <div class="form-group col-12" *ngFor="let player of players">
+                    <div class="name_prefilled form-control">{{ player.name }}</div>
+                    
+                    <span class="remark" [ngClass]="{
+                'rem_success':  player.status  === 'online',
+                'reg_admin': player.status  === 'away',
+                'rem_pending':  player.status  === 'offline'
+            }" *ngIf="player.status">
+                        {{ player.status }}
+                    </span>
+
+                    <span class="remark rem_pending" *ngIf="!player.status">Pending</span>
+                </div>
+                <div class="form-group col-12" *ngFor="let player of players">
+                    <div class="row" *ngIf="isAdmin && !player.isAdmin">
+                        <div class="col-12 padd_r0 text-left">
+                            {{ player.name }} <br/>https://upcomingprojects.in/tata-realty/game/play/{{ game.key }}/{{ player.key }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12">
+                    <div class="row" *ngIf="canBeStarted && isAdmin">
+                        <div class="col-6 padd_r0 text-left">
+                            <button type="button" (click)="onStart()" class="verify_btn">
+                                Start Game <i class="fa fa-caret-right"></i>
+                            </button>
+                        </div>
+                        <p>&nbsp;</p>
+                    </div>
+                    <div class="row" *ngIf="isAdmin && !canBeStarted">
+                        <div class="col-6 padd_r0 text-left">
+                            Waiting for players to join...
+                        </div>
+                        <p>&nbsp;</p>
+                    </div>
+                    <div class="row" *ngIf="!isAdmin">
+                        <div class="col-6 padd_r0 text-left">
+                            Waiting for admin to start the game...
+                        </div>
+                        <p>&nbsp;</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+<div id="preloader_cov">
+    <div class="inner">
+      <div class="preloader_bar">
+        <!-- <div class="preloader_circle"></div>
+       <p>Loading</p> -->
+        <!-- <img src="img/animated-horse-gif-45.gif" class="img-fluid" alt=""> -->
+      </div>
+    </div>
+  </div>
+  
+  <app-menu></app-menu>
+  
+  <div class="wrapper regi_bg">
+  
+    <app-header></app-header>
+  
+    <div class="container">
+      <div class="logo_main text-center">
+        <a routerLink="/">
+          <img src="/tata-realty/assets/img/main_logo.png" class="img-fluid" alt="">
+        </a>
+      </div>
+      <div class="main row" [hidden]="windowRef.confirmationResult">
+        <div class="col-10 offset-1 text-center">
+          <h3 class="theme_blue">Welcome Back!</h3>
+          <p>Sign In.</p>
+        </div>
+        <div class="col-10 offset-1">
+          <form class="row regist_form" (ngSubmit)="onSubmit()" ngNativeValidate>
+            <div class="form-group col-12">
+              <input type="tel" class="form-control" id="phone" placeholder="Enter your mobile no" name="phone"
+                pattern="[0-9]{10}" required [(ngModel)]="user.phone">
+            </div>
+            <div class="form-group col-12">
+              <div id="recaptcha-container"></div>
+            </div>
+            <div class="form-group col-12">
+              <div class="row">
+                <div class="col-6 padd_r0 text-left">
+                  <button type="submit" class="verify_btn">
+                    Verify &nbsp;<i class="fa fa-caret-right"></i>
+                  </button>
+                </div>
+                <div class="col-6 text-right">
+                  <!-- <a href="#" class="reset_btn pull-right">
+                      Reset
+                    </a> -->
+                </div>
+                <p>&nbsp;</p>
+                <div class="col-12 text-center">
+                  <a routerLink="/sign-up" class="already_rigy">New member click here</a>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+      <div class="main row" *ngIf="windowRef.confirmationResult">
+        <div class="col-10 offset-1 text-center">
+          <h3 class="theme_blue">Welcome Back!</h3>
+          <p>Sign In.</p>
+        </div>
+        <div class="col-10 offset-1">
+          <form class="row regist_form" (ngSubmit)="onVerify()" ngNativeValidate>
+            <div class="form-group col-12">
+              <input type="text" class="form-control" id="verificationCode" placeholder="Enter OTP"
+                name="verificationCode" required [(ngModel)]="verificationCode">
+            </div>
+            <div class="form-group col-12">
+              <div class="row">
+                <div class="col-6 padd_r0 text-left">
+                  <button type="submit" class="verify_btn">
+                    Submit OTP <i class="fa fa-caret-right"></i>
+                  </button>
+                </div>
+                <div class="col-6 text-right">
+                  <a href="#" class="reset_btn pull-right">
+                    Resend OTP
+                  </a>
+                </div>
+                <p>&nbsp;</p>
+                <div class="col-12 text-center">
+                  <p>&nbsp;</p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+    </div>
+  </div>

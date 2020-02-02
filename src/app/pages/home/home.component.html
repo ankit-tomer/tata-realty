@@ -1,0 +1,53 @@
+<div id="preloader_cov">
+    <div class="inner">
+        <div class="preloader_bar">
+            <!-- <div class="preloader_circle"></div>
+            <p>Loading</p> -->
+            <!-- <img src="./assets/img/animated-horse-gif-45.gif" class="img-fluid" alt=""> -->
+        </div>
+    </div>
+</div>
+
+<app-menu></app-menu>
+
+<div class="wrapper">
+    
+    <header>
+        <div class="container">
+            <div class="logo_right">
+                <a href="/">
+                    <img src="/tata-realty/assets/img/tata_realty_logo.svg" class="img-fluid" alt="">
+                </a>
+            </div>
+    
+            <div class="logo_main logo_home">
+                <a href="javascript:;">
+                    <img src="/tata-realty/assets/img/main_logo.png" class="img-fluid" alt="">
+                </a>
+            </div>
+    
+            <div class="burger_icon menu_icon">
+                <a href="javascript:;">
+                    <img src="/tata-realty/assets/img/menu_icon.png" class="img-fluid" alt="">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <ngx-slick-carousel class="main_slider row" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let slide of slides">
+                <img src="{{ slide.img }}" alt="" class="img-fluid">
+                <div class="col-12 txt">
+                    <h3>{{ slide.title }}</h3>
+                    <p>{{ slide.description }}</p>
+                </div>
+            </div>
+        </ngx-slick-carousel>
+
+        <button class="get_start" (click)="onGetStarted()">
+            Get Starated!
+        </button>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+<div id="preloader_cov">
+  <div class="inner">
+    <div class="preloader_bar">
+      <!-- <div class="preloader_circle"></div>
+     <p>Loading</p> -->
+    </div>
+  </div>
+</div>
+
+<app-menu></app-menu>
+
+<div class="wrapper regi_bg">
+  
+  <app-header></app-header>
+  
+  <div class="container">
+    <div class="logo_main text-center">
+      <a routerLink="/">
+        <img src="/tata-realty/assets/img/main_logo.png" class="img-fluid" alt="">
+      </a>
+    </div>
+    <div class="main row" [hidden]="windowRef.confirmationResult">
+      <div class="col-10 offset-1 text-center">
+        <h3 class="theme_blue">Welcome <span>{{ groupMember.name }}</span>!</h3>
+        <p>Your friend Samit inveted you to his group <br />
+          to play Phone chodo dil jodo game!</p>
+      </div>
+      <div class="col-10 offset-1">
+        <form class="row regist_form" (ngSubmit)="onSubmit()" ngNativeValidate>
+          <div class="form-group col-12">
+            <input type="text" class="form-control" id="groupName" placeholder="Enter group name" name="groupName" required
+        [(ngModel)]="group.name" readonly>
+          </div>
+          <div class="form-group col-12">
+            <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name" required
+        [(ngModel)]="groupMember.name">
+          </div>
+          <div class="form-group col-12">
+            <div class="row">
+              <div class="radio-toolbar">
+                <input type="radio" id="gender0" name="gender" value="male" [(ngModel)]="user.gender"
+        [(ngModel)]="user.gender">
+                <label for="gender0">Male</label>
+
+               <input type="radio" id="gender1" name="gender" value="female" [(ngModel)]="user.gender"
+        [(ngModel)]="user.gender">
+                <label for="gender1">Female</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-12">
+            <input type="tel" class="form-control" id="phone" placeholder="Enter your mobile no" name="phone"
+        pattern="[0-9]{10}" required [(ngModel)]="groupMember.phone" readonly>
+          </div>
+          <div class="form-group col-12">
+            <div id="recaptcha-container"></div>
+          </div>
+          <div class="form-group col-12">
+            <div class="row">
+              <div class="col-5 padd_r0 text-left">
+                <button type="submit" class="verify_btn">
+                  Confirm <span><i class="fa fa-caret-right"></i></span>
+                </button>
+              </div>
+              <div class="col-7 text-right">
+                <a routerLink="/sign-up" class="reset_btn pull-right">
+                  Create my own group
+                </a>
+              </div>
+              <p>&nbsp;</p>
+              <p>&nbsp;</p>
+              <div class="col-12 text-center">
+                <a href="#" class="terms_link">Terms of service are the legal agreements between a service
+                  provider and a person who wants to use that service.</a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="main row" *ngIf="windowRef.confirmationResult">
+      <div class="col-10 offset-1 text-center">
+        <h3 class="theme_blue">Welcome!</h3>
+        <p>Register your self as a admin for the game.</p>
+      </div>
+      <div class="col-10 offset-1">
+        <form class="row regist_form" (ngSubmit)="onVerify()" ngNativeValidate>
+          <div class="form-group col-12">
+            <input type="text" class="form-control" id="verificationCode" placeholder="Enter OTP" name="verificationCode"
+        required [(ngModel)]="verificationCode">
+          </div>
+          <div class="form-group col-12">
+            <div class="row">
+              <div class="col-6 padd_r0 text-left">
+                <button type="submit" class="verify_btn">
+                  Submit OTP <i class="fa fa-caret-right"></i>
+                </button>
+              </div>
+              <div class="col-6 text-right">
+                <a href="#" class="reset_btn pull-right">
+                  Resend OTP
+                </a>
+              </div>
+              <p>&nbsp;</p>
+              <div class="col-12 text-center">
+                <p>&nbsp;</p>
+              </div>
+              <p>&nbsp;</p>
+              <p>&nbsp;</p>
+              <div class="col-12 text-center">
+                <a href="#" class="terms_link">Terms of service are the legal agreements between a service
+                  provider and a person who wants to use that service.</a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

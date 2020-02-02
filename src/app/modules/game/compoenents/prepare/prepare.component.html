@@ -1,0 +1,36 @@
+<div id="preloader_cov">
+    <div class="inner">
+        <div class="preloader_bar">
+            <!-- <div class="preloader_circle"></div>
+       <p>Loading</p> -->
+            <!-- <img src="./assets/img/animated-horse-gif-45.gif" class="img-fluid" alt=""> -->
+        </div>
+    </div>
+</div>
+
+<app-menu></app-menu>
+
+<div class="game_start_instruct">
+    <div class="inner">
+        <div class="instr_cover">
+            <div class="col-12 txt1">
+                <img src="/tata-realty/assets/img/info-icon.png" alt="">
+                Instruction
+            </div>
+
+            <div class="img_cov col-6 offset-3">
+                <img src="/tata-realty/assets/img/instruct_img.png" alt="" class="img-fluid">
+            </div>
+
+            <p class="txt2">Please keep your mobile in flat surface. <br />
+                Any movement will stop your score. </p>
+
+            <h2>Game will start in</h2>
+            <h1><countdown-timer [countDownTimerConfig]="timerConfig"></countdown-timer></h1>
+
+            <!-- <a href="#" class="pause_button">
+                pause
+            </a> -->
+        </div>
+    </div>
+</div>

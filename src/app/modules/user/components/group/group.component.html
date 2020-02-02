@@ -1,0 +1,69 @@
+<div id="preloader_cov">
+    <div class="inner">
+      <div class="preloader_bar">
+        <!-- <div class="preloader_circle"></div>
+     <p>Loading</p> -->
+        <!-- <img src="./assets/img/animated-horse-gif-45.gif" class="img-fluid" alt=""> -->
+      </div>
+    </div>
+  </div>
+  
+  <app-menu></app-menu>
+  
+  <div class="wrapper regi_bg">
+    
+    <app-header></app-header>
+    
+    <div class="container">
+      <div class="logo_main text-center">
+        <a routerLink="/">
+          <img src="/tata-realty/assets/img/main_logo.png" class="img-fluid" alt="">
+        </a>
+      </div>
+      <div class="main row">
+        <div class="family_patch regi_fami_patch col-10 offset-1">
+          <div class="inner">
+            <div class="img_cov" style=" background: url(./assets/img/male_profile.jpg) no-repeat 100% 100%; 
+                   -webkit-background-size: cover;
+                   -moz-background-size: cover;
+                   -o-background-size: cover;
+                   background-size: cover;">
+            </div>
+            <p class="name"><span>{{ group.name }}</span> <br /><span> 48:43:51</span> </p>
+            <span class="numb pull-right">09<sup>th</sup></span>
+          </div>
+        </div>
+        <div class="col-10 offset-1">
+          <form class="row regist_form" ngNativeValidate>
+            <div class="form-group col-12" *ngFor="let member of groupMembers">
+              <div class="name_prefilled form-control">{{ member.name }}</div>
+              
+              <span class="remark reg_admin" *ngIf="member.isAdmin">Admin</span>
+  
+              <span class="remark rem_success" *ngIf="!member.isAdmin && member.uid">
+                Verified
+              </span>
+              <span class="remark rem_pending" *ngIf="!member.isAdmin && !member.uid">
+                Not Verified
+              </span>
+            </div>
+            <div class="form-group col-12">
+                <div class="row">
+                  <div class="col-6 padd_r0 text-left">
+                    <button type="button" (click)="goToDashboard()" class="verify_btn">
+                      Go To My Dashboard <i class="fa fa-caret-right"></i>
+                    </button>
+                  </div>
+                  <div class="col-6 text-right">
+                    <!-- <a href="#" class="reset_btn pull-right">
+                      Reset
+                    </a> -->
+                  </div>
+                  <p>&nbsp;</p>
+                </div>
+              </div>
+          </form>
+        </div>
+      </div>  
+    </div>
+  </div>
