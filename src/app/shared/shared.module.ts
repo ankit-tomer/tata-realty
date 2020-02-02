@@ -2,25 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from './components/menu/menu.component';
 import { HeaderComponent } from './components/header/header.component';
-import { AppRoutingModule } from '../app-routing.module';
-import { RootComponent } from './components/root/root.component';
 
 
 
 @NgModule({
   declarations: [
     MenuComponent,
-    HeaderComponent,
-    RootComponent
+    HeaderComponent
   ],
   imports: [
-    CommonModule,
-    AppRoutingModule
+    CommonModule
   ],
   exports: [
     MenuComponent,
-    HeaderComponent,
-    RootComponent
+    HeaderComponent
   ]
 })
 export class SharedModule { }
