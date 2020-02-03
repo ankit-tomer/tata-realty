@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
         this.toastrService.success('Invitation sent successfully.', 'Invite');
         this.member = new GroupMember();
 
-        this.inviteUrl = 'https://upcomingprojects.in/tata-realty/sign-up/by-invite/' + res.key;
+        this.inviteUrl = 'https://upcomingprojects.in/sign-up/by-invite/' + res.key;
         //console.log(res);
 
       }, err => {
