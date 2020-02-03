@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  @Input() centerLogo: boolean;
+
   constructor() { }
 
   ngOnInit() {
+
+  }
+
+  openMenu() {
+    jQuery('.menu_cover').addClass('active');
+    jQuery('.menu_icon .burger_ico').hide(function(){
+      jQuery('header a.close_me').fadeIn();
+      //console.log('demo');
+    });
   }
 
 }

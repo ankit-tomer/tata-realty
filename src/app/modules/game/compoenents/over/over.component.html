@@ -12,7 +12,7 @@
 
 <div class="wrapper regi_bg">
     
-    <app-header></app-header>
+    <app-header [centerLogo]="false"></app-header>
     
     <div class="container">
         <div class="logo_main text-center">
@@ -30,40 +30,45 @@
                background-size: cover;">
 
                     </div>
-                    <p class="name"><span>Poipkar’s Family</span> <br /><span> 48:43:51</span> </p>
+                    <p class="name"><span>{{ group.name }}</span> <br /><span> 48:43:51</span> </p>
                     <span class="numb pull-right">09<sup>th</sup></span>
                 </div>
             </div>
             <div class="blue_texture start_ablue col-12">
                 <img src="assets/img/blue-bg.png" class="overlay" alt="">
                 <div class="inner_cov">
-                    <h3 class="intro_txt">Aneesh lifted his phone. Your current score. </h3>
+                    <h3 class="intro_txt">{{ game.endedByName }} lifted his phone. Your current score. </h3>
                     <div class="timer_patch">
                         <div class="time_block">
                             <p>HR.</p>
                             <h1>
-                                02:
+                                {{ score[0] }}:
                             </h1>
                         </div>
                         <div class="time_block">
                             <p>MIN.</p>
                             <h1>
-                                43:
+                                {{ score[1] }}:
                             </h1>
                         </div>
                         <div class="time_block">
                             <p>SEC.</p>
                             <h1>
-                                43
+                                {{ score[2] }}
                             </h1>
                         </div>
                         <div class="timer_txt">
                             <h3>OF TOGETHERNES</h3>
                         </div>
                     </div>
-                    <div class="col-12 text-center">
+                    <div class="col-12 text-center" *ngIf="player.isAdmin">
                         <button class="get_start" (click)="goToDashboard()">
-                            Start Again &nbsp; <i class="fa fa-caret-right"></i>
+                            Start New Game &nbsp; <i class="fa fa-caret-right"></i>
+                        </button>
+                    </div>
+                    <div class="col-12 text-center" *ngIf="!player.isAdmin">
+                        <button class="get_start" (click)="goToDashboard()">
+                            Go To My Dashboard &nbsp; <i class="fa fa-caret-right"></i>
                         </button>
                     </div>
                     <p>&nbsp;</p>

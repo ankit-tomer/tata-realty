@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { countUpTimerConfigModel, timerTexts, CountupTimerService } from 'ngx-timer';
-import { Game } from 'src/app/interfaces/game';
+import { Game, Player } from 'src/app/interfaces/game';
 import { GameService } from 'src/app/shared/services/game.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User, Group } from 'src/app/interfaces/user';
@@ -20,6 +20,7 @@ export class StartComponent implements OnInit {
   group: Group;
 
   user: User;
+  player: Player;
   playerId: string;
 
   presence$;
@@ -27,9 +28,11 @@ export class StartComponent implements OnInit {
   constructor(private countupTimerService: CountupTimerService, private authService: AuthService, private userService: UserService, private gameService: GameService, private router: Router, private route: ActivatedRoute, private presence: PresencessService) {
     this.game = new Game();
     this.group = new Group();
+    this.player = new Player();
   }
 
   ngOnInit() {
+    this.user = this.userService.getUserInfo();
 
     //countUpTimerConfigModel
     this.timerConfig = new countUpTimerConfigModel();
@@ -46,6 +49,11 @@ export class StartComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       if (params.get('id')) {
         this.playerId = params.get('player');
+
+        this.gameService.getPlayer(this.playerId).valueChanges().subscribe(player => {
+          this.player = player;
+        });
+
         this.presence.playerId = this.playerId;
         this.presence$ = this.presence.getPresence(this.playerId);
 
@@ -56,14 +64,25 @@ export class StartComponent implements OnInit {
           this.presence$.subscribe(pres => {
             //console.log(pres);
             if (pres.status != 'online') {
-              this.gameService.startGame(this.game.key, { status: 'over' })
+              console.log('ended');
+
+              this.countupTimerService.pauseTimer();
+              
+              // this.countupTimerService.getTimerValue().subscribe(time => {
+              //   console.log('time: ' + time);
+              // });
+              // console.log('totalSeconds: ' + this.countupTimerService.totalSeconds);
+              // console.log('timerValue: ' + this.countupTimerService.timerValue.hours+':'+this.countupTimerService.timerValue.mins+':'+this.countupTimerService.timerValue.seconds);
+
+              this.gameService.startGame(this.game.key, { status: 'over', endedById: this.user.uid, endedByName: this.user.fullName, score:  this.countupTimerService.timerValue.hours+':'+this.countupTimerService.timerValue.mins+':'+this.countupTimerService.timerValue.seconds, scoreSeconds: this.countupTimerService.totalSeconds})
                 .then(res => {
                   this.router.navigate(['/game/over/' + this.game.key + '/' + this.playerId]);
+                  return false;
                 }, err => {
                   //console.log(err);
                 });
             }
-          })
+          });
           // if(this.presence$.status != 'online') {
           //   console.log(this.presence$.status);
           // }
@@ -72,19 +91,19 @@ export class StartComponent implements OnInit {
             this.group = groups[0];
           });
 
-          // switch (this.game.status) {
-          //   case 'created':
-          //     break;
-          //   case 'prepared':
-          //     this.router.navigate(['/game/prepare/' + this.game.key + '/' + this.playerId]);
-          //     break;
-          //   case 'started':
-          //     this.router.navigate(['/game/start/' + this.game.key + '/' + this.playerId]);
-          //     break;
-          //   case 'over':
-          //     this.router.navigate(['/game/over/' + this.game.key + '/' + this.playerId]);
-          //     break;
-          // }
+          switch (this.game.status) {
+            case 'created':
+              break;
+            case 'prepared':
+              this.router.navigate(['/game/prepare/' + this.game.key + '/' + this.playerId]);
+              break;
+            case 'started':
+              this.router.navigate(['/game/start/' + this.game.key + '/' + this.playerId]);
+              break;
+            case 'over':
+              this.router.navigate(['/game/over/' + this.game.key + '/' + this.playerId]);
+              break;
+          }
 
           let cdate = new Date();
           cdate.setHours(cdate.getHours());
@@ -94,10 +113,6 @@ export class StartComponent implements OnInit {
         });
       }
     });
-  }
-
-  onStop() {
-    this.countupTimerService.pauseTimer();
   }
 
 }

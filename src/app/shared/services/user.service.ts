@@ -18,24 +18,24 @@ export class UserService {
   group: Group;
   userInfo: User
 
-  constructor(private authService: AuthService, private db: AngularFireDatabase) { 
+  constructor(private authService: AuthService, private db: AngularFireDatabase) {
     this.groupsRef = db.list(this.dbPathGroups);
     this.groupsMembersRef = db.list(this.dbPathGroupMembers);
     this.usersRef = db.list(this.dbPathusers);
 
-    if(localStorage.getItem('group')){
-			this.group = JSON.parse(localStorage.getItem('group'));
-		}
-		else{
-			this.group = new Group();
+    if (localStorage.getItem('group')) {
+      this.group = JSON.parse(localStorage.getItem('group'));
     }
-    
-    if(localStorage.getItem('userInfo')){
-			this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-		}
-		else{
-			this.userInfo = new User();
-		}
+    else {
+      this.group = new Group();
+    }
+
+    if (localStorage.getItem('userInfo')) {
+      this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    }
+    else {
+      this.userInfo = new User();
+    }
   }
 
   createGroup(group: Group) {
@@ -58,7 +58,7 @@ export class UserService {
   }
 
   getGroupById(key: string): AngularFireObject<Group> {
-    return this.db.object(this.dbPathGroups +'/'+ key);
+    return this.db.object(this.dbPathGroups + '/' + key);
   }
 
   getGroupsbyUid(uid: string) {
@@ -82,7 +82,7 @@ export class UserService {
   }
 
   getMemberById(key: string): AngularFireObject<GroupMember> {
-    return this.db.object(this.dbPathGroupMembers +'/'+ key);
+    return this.db.object(this.dbPathGroupMembers + '/' + key);
   }
 
   updateMember(key: string, value: any): Promise<void> {
@@ -114,7 +114,7 @@ export class UserService {
   }
 
   getUserById(key: string): AngularFireObject<User> {
-    return this.db.object(this.dbPathusers +'/'+ key);
+    return this.db.object(this.dbPathusers + '/' + key);
   }
 
   updateUser(key: string, value: any): Promise<void> {
@@ -124,5 +124,9 @@ export class UserService {
   getUserByPhone(phone: string): AngularFireList<User> {
     this.usersRef = this.db.list(this.dbPathusers, ref => ref.orderByChild('phone').equalTo(phone));
     return this.usersRef;
+  }
+
+  getUserByPhone2(phone: string): AngularFireObject<User> {
+    return this.db.object(this.dbPathusers + '/' + phone);
   }
 }

@@ -46,6 +46,7 @@ export class SignUpComponent implements OnInit {
     this.userService.getUserByPhone(this.user.phone).valueChanges().subscribe(users => {
       if (users.length > 0) {
         this.toastrService.error('Your phone no is already registered with us.', 'Sign Up');
+        return false;
       }
       else {
         firebase.auth().signInWithPhoneNumber(phoneNumberString, appVerifier)

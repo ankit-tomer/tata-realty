@@ -4,7 +4,6 @@ import { PlayComponent } from './compoenents/play/play.component';
 import { PrepareComponent } from './compoenents/prepare/prepare.component';
 import { StartComponent } from './compoenents/start/start.component';
 import { OverComponent } from './compoenents/over/over.component';
-import { JoinComponent } from './compoenents/join/join.component';
 
 
 const routes: Routes = [
@@ -23,10 +22,6 @@ const routes: Routes = [
   {
     path: 'over/:id/:player',
     component: OverComponent
-  },
-  {
-    path: 'join/:id',
-    component: JoinComponent
   }
 ];
 

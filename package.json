@@ -26,6 +26,7 @@
     "firebase": "^7.7.0",
     "firebaseui": "^4.4.0",
     "jquery": "^3.4.1",
+    "ngx-countdown": "^8.0.3",
     "ngx-slick-carousel": "^0.4.7",
     "ngx-timer": "^1.0.6",
     "ngx-toastr": "^11.3.2",

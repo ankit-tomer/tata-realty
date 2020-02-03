@@ -18,13 +18,6 @@ export class MenuComponent implements OnInit {
         }, 1000);
       });
 
-      jQuery('.menu_icon .burger_ico').click(function () {
-        jQuery('.menu_cover').addClass('active');
-        jQuery('.menu_icon .burger_ico').hide(function(){
-          jQuery('header a.close_me').fadeIn();
-        });
-      });
-
       jQuery('header a.close_me').click(function () {
         jQuery('.menu_cover').removeClass('active');
         jQuery('header a.close_me').hide(function(){
