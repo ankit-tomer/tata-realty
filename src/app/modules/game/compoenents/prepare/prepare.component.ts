@@ -67,7 +67,7 @@ export class PrepareComponent implements OnInit {
       this.gameService.startGame(this.game.key, { status: 'started' })
       .then(res => {
         this.router.navigate(['/game/start/' + this.game.key + '/' + this.playerId]);
-        console.log('started');
+        //console.log('started');
       }, err => {
         //console.log(err);
       });

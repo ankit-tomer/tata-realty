@@ -44,7 +44,7 @@ export class OverComponent implements OnInit {
           let score: string = this.game.score;
           this.score = score.split(':');
           //let arrayScore = score.split(':');
-          console.log(this.score);
+          //console.log(this.score);
 
           this.userService.getGroupsbyUid(this.game.uid).valueChanges().subscribe(groups => {
             this.group = groups[0];

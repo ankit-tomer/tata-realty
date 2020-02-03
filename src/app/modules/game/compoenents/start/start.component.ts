@@ -57,45 +57,51 @@ export class StartComponent implements OnInit {
         this.presence.playerId = this.playerId;
         this.presence$ = this.presence.getPresence(this.playerId);
 
+        let cdate = new Date();
+        cdate.setHours(cdate.getHours());
+        cdate.setSeconds(cdate.getSeconds());
+        this.countupTimerService.startTimer(cdate);
+
         this.gameService.getGame(params.get('id')).valueChanges().subscribe(game => {
           this.game = game;
           this.game.key = params.get('id');
 
-          if(this.game.status != 'over') {
-            this.presence$.subscribe(pres => {
-            
+          this.presence$.subscribe(pres => {
+            //console.log(this.game.status);
+            if (this.game.status != 'over') {
               if (pres.status != 'online') {
-                console.log('ended');
-  
+                //console.log('ended');
+
                 this.countupTimerService.pauseTimer();
-  
+
                 // this.countupTimerService.getTimerValue().subscribe(time => {
                 //   console.log('time: ' + time);
                 // });
-                console.log('totalSeconds: ' + this.countupTimerService.totalSeconds);
-                console.log('timerValue: ' + this.countupTimerService.timerValue.hours + ':' + this.countupTimerService.timerValue.mins + ':' + this.countupTimerService.timerValue.seconds);
-  
+                // console.log('totalSeconds: ' + this.countupTimerService.totalSeconds);
+                // console.log('timerValue: ' + this.countupTimerService.timerValue.hours + ':' + this.countupTimerService.timerValue.mins + ':' + this.countupTimerService.timerValue.seconds);
+
                 let gameScore = {
                   status: 'over',
                   endedById: this.user.uid,
-                  endedByName: this.player.name, 
+                  endedByName: this.player.name,
                   score: this.countupTimerService.timerValue.hours + ':' + this.countupTimerService.timerValue.mins + ':' + this.countupTimerService.timerValue.seconds,
                   scoreSeconds: this.countupTimerService.totalSeconds
                 }
-  
-                console.log(gameScore);
-  
+
+                //console.log(gameScore);
+
                 this.gameService.startGame(this.game.key, gameScore)
                   .then(res => {
+                    this.countupTimerService.stopTimer();
                     this.router.navigate(['/game/over/' + this.game.key + '/' + this.playerId]);
                     return false;
                   }, err => {
                     //console.log(err);
                   });
               }
-            });
-          }
-          
+            }
+          });
+
           // if(this.presence$.status != 'online') {
           //   console.log(this.presence$.status);
           // }
@@ -117,11 +123,6 @@ export class StartComponent implements OnInit {
               this.router.navigate(['/game/over/' + this.game.key + '/' + this.playerId]);
               break;
           }
-
-          let cdate = new Date();
-          cdate.setHours(cdate.getHours());
-          cdate.setSeconds(cdate.getSeconds());
-          this.countupTimerService.startTimer(cdate);
 
         });
       }
