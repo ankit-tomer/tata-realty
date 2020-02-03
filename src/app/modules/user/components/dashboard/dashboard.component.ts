@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   gameId: string;
   adminPlayerId: string;
 
-  constructor(private authService: AuthService, private userService: UserService, public toastrService: ToastrService, private gameService: GameService, private router: Router) {
+  constructor(private authService: AuthService, private userService: UserService, public toastrService: ToastrService, private gameService: GameService, private router: Router, private presence: PresencessService) {
     this.member = new GroupMember();
     this.group = new Group();
   }
@@ -152,6 +152,8 @@ export class DashboardComponent implements OnInit {
               .then(res2 => {
                 if(player.isAdmin) {
                   this.adminPlayerId = res2.key;
+                  this.presence.playerId = res2.key;
+                  this.presence.setPresence('online');
                 }
                 //send invite to join the game
               }, err => {

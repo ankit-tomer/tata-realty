@@ -62,19 +62,29 @@ export class StartComponent implements OnInit {
           this.game.key = params.get('id');
 
           this.presence$.subscribe(pres => {
-            //console.log(pres);
+            console.log(pres);
             if (pres.status != 'online') {
               console.log('ended');
 
               this.countupTimerService.pauseTimer();
-              
+
               // this.countupTimerService.getTimerValue().subscribe(time => {
               //   console.log('time: ' + time);
               // });
-              // console.log('totalSeconds: ' + this.countupTimerService.totalSeconds);
-              // console.log('timerValue: ' + this.countupTimerService.timerValue.hours+':'+this.countupTimerService.timerValue.mins+':'+this.countupTimerService.timerValue.seconds);
+              console.log('totalSeconds: ' + this.countupTimerService.totalSeconds);
+              console.log('timerValue: ' + this.countupTimerService.timerValue.hours + ':' + this.countupTimerService.timerValue.mins + ':' + this.countupTimerService.timerValue.seconds);
 
-              this.gameService.startGame(this.game.key, { status: 'over', endedById: this.user.uid, endedByName: this.user.fullName, score:  this.countupTimerService.timerValue.hours+':'+this.countupTimerService.timerValue.mins+':'+this.countupTimerService.timerValue.seconds, scoreSeconds: this.countupTimerService.totalSeconds})
+              let gameScore = {
+                status: 'over',
+                endedById: this.user.uid,
+                endedByName: this.player.name, 
+                score: this.countupTimerService.timerValue.hours + ':' + this.countupTimerService.timerValue.mins + ':' + this.countupTimerService.timerValue.seconds,
+                scoreSeconds: this.countupTimerService.totalSeconds
+              }
+
+              console.log(gameScore);
+
+              this.gameService.startGame(this.game.key, gameScore)
                 .then(res => {
                   this.router.navigate(['/game/over/' + this.game.key + '/' + this.playerId]);
                   return false;
