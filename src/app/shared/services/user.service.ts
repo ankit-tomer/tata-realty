@@ -126,7 +126,8 @@ export class UserService {
     return this.usersRef;
   }
 
-  getUserByPhone2(phone: string): AngularFireObject<User> {
-    return this.db.object(this.dbPathusers + '/' + phone);
+  getUserByUid(uid: string): AngularFireList<User> {
+    this.usersRef = this.db.list(this.dbPathusers, ref => ref.orderByChild('uid').equalTo(uid));
+    return this.usersRef;
   }
 }

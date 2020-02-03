@@ -21,19 +21,7 @@
             </a>
           </div>
         <div class="main row">
-            <div class="family_patch regi_fami_patch col-10 offset-1">
-                <div class="inner">
-                    <div class="img_cov" style=" background: url(./assets/img/male_profile.jpg) no-repeat 100% 100%; 
-               -webkit-background-size: cover;
-               -moz-background-size: cover;
-               -o-background-size: cover;
-               background-size: cover;">
-
-                    </div>
-                    <p class="name"><span>{{ group.name }}</span> <br /><span> 48:43:51</span> </p>
-                    <span class="numb pull-right">09<sup>th</sup></span>
-                </div>
-            </div>
+            <app-my-score [group]="group" [user]="user" class="family_patch regi_fami_patch col-10 offset-1"></app-my-score>
             <div class="blue_texture start_ablue col-12">
                 <img src="assets/img/blue-bg.png" class="overlay" alt="">
                 <div class="inner_cov">

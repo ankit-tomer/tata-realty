@@ -42,18 +42,35 @@ export class DashboardComponent implements OnInit {
   onSubmit() {
     this.member.isAdmin = false;
     this.member.groupId = this.group.key;
-    this.userService.createMember(this.member)
-      .then(res => {
-        this.toastrService.success('Invitation sent successfully.', 'Invite');
-        this.member = new GroupMember();
 
-        this.inviteUrl = 'https://upcomingprojects.in/sign-up/by-invite/' + res.key;
-        //console.log(res);
+    if (!this.memberExists(this.member.phone)) {
+      this.userService.createMember(this.member)
+        .then(res => {
+          this.toastrService.success('Invitation sent successfully.', 'Invite');
+          this.member = new GroupMember();
 
-      }, err => {
-        this.toastrService.error(err.message, 'Invite');
-        //console.log(err);
-      });
+          this.inviteUrl = 'https://upcomingprojects.in/sign-up/by-invite/' + res.key;
+          //console.log(res);
+
+        }, err => {
+          this.toastrService.error(err.message, 'Invite');
+          //console.log(err);
+        });
+    }
+    else {
+      this.toastrService.error('Member already exists.', 'Invite');
+    }
+
+  }
+
+  memberExists(phone: string): boolean {
+    let memberExists: boolean = false;
+    for (var member of this.groupMembers) {
+      if (member.phone == phone) {
+        memberExists = true;
+      }
+    }
+    return memberExists;
   }
 
   onSubmitGroup() {
@@ -150,7 +167,7 @@ export class DashboardComponent implements OnInit {
 
             this.gameService.createPlayer(player)
               .then(res2 => {
-                if(player.isAdmin) {
+                if (player.isAdmin) {
                   this.adminPlayerId = res2.key;
                   this.presence.playerId = res2.key;
                   this.presence.setPresence('online');
@@ -162,7 +179,7 @@ export class DashboardComponent implements OnInit {
           }
         }
 
-        setTimeout(this.goToGamePlay.bind(this), 1000);      
+        setTimeout(this.goToGamePlay.bind(this), 1000);
 
       }, err => {
         //console.log(err);
@@ -170,7 +187,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goToGamePlay() {
-    this.router.navigate(['/game/play/'+this.gameId+'/'+this.adminPlayerId]);
+    this.router.navigate(['/game/play/' + this.gameId + '/' + this.adminPlayerId]);
   }
 
 }
