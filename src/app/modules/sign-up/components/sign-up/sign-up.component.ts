@@ -77,6 +77,7 @@ export class SignUpComponent implements OnInit {
         if (result.additionalUserInfo.isNewUser) {
 
           this.group.uid = result.user.uid;
+          this.group.totalScore = 0;
 
           this.userService.createGroup(this.group)
             .then(res => {
@@ -88,8 +89,7 @@ export class SignUpComponent implements OnInit {
 
               this.userService.createUser(this.user)
                 .then(res2 => {
-                  //console.log(res);
-                  this.user.key = res2.key;
+                  //console.log(res2);
                   this.userService.setUser(this.user);
 
                   this.groupMember.name = this.user.fullName;

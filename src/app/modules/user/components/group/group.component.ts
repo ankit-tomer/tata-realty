@@ -43,6 +43,13 @@ export class GroupComponent implements OnInit {
     ).subscribe(members => {
       //console.log(users)
       this.groupMembers = members;
+      for (var member of this.groupMembers) {
+        if (member.isAdmin) {
+          this.userService.getUser(member.uid).valueChanges().subscribe(user => {
+            this.user = user;
+          })
+        }
+      }
     });
   }
 

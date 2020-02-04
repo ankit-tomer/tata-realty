@@ -11,26 +11,21 @@
 <app-menu></app-menu>
 
 <div class="wrapper leader_bg">
-    
     <app-header [centerLogo]="false"></app-header>
-
-    <div class="family_patch regi_fami_patch leader_fam_patch col-10 offset-1">
+    <!-- <div class="family_patch regi_fami_patch leader_fam_patch col-10 offset-1">
         <div class="inner">
             <div class="img_cov" style=" background: url(./assets/img/male_profile.jpg) no-repeat 100% 100%; 
          -webkit-background-size: cover;
          -moz-background-size: cover;
          -o-background-size: cover;
          background-size: cover;">
-
             </div>
             <p class="name"><span>Poipkar’s Family</span> <br /><span> 48:43:51</span> </p>
             <span class="numb pull-right">09<sup>th</sup></span>
         </div>
-    </div>
+    </div> -->
+    <app-my-score [group]="group" [user]="user" class="family_patch regi_fami_patch leader_fam_patch col-10 offset-1"></app-my-score>
     <div class="container">
-
-
-
         <div class="in_out_time col-10 offset-1">
             <div class="theme_blue txt">TODAYS TIME:</div>
             <div><span>&nbsp; HR. &nbsp;&nbsp;&nbsp;&nbsp; MIN. &nbsp;&nbsp;&nbsp;&nbsp; SEC.</span><br /> 02:19:45
@@ -44,96 +39,21 @@
                 <h3 class="text-center title">LEADERBOARD</h3>
                 <div class="leader_scroll">
                     <div class="col-10 offset-1">
-                        <div class="leader_blk color1">
+                        <div class="leader_blk color1" *ngFor="let group of groups; index as i">
                             <div class="img_cov">
                                 <img src="./assets/img/female_profile.jpg" class="img-fluid" alt="">
                             </div>
                             <div class="txt_cov">
-                                <span>Sharma Family</span> <br />
-                                <span>48:43:51</span>
+                                <span>{{ group.name }}</span> <br />
+                                <span>{{ secondsToTime(group.totalScore) }}</span>
                             </div>
                             <div class="rank">
-                                <span class="pull-right">01 <sup>st</sup></span>
-                            </div>
-                        </div>
-                        <div class="leader_blk color1">
-                            <div class="img_cov">
-                                <img src="./assets/img/female_profile.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="txt_cov">
-                                <span>Sharma Family</span> <br />
-                                <span>48:43:51</span>
-                            </div>
-                            <div class="rank">
-                                <span class="pull-right">01 <sup>st</sup></span>
-                            </div>
-                        </div>
-                        <div class="leader_blk color1">
-                            <div class="img_cov">
-                                <img src="./assets/img/female_profile.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="txt_cov">
-                                <span>Sharma Family</span> <br />
-                                <span>48:43:51</span>
-                            </div>
-                            <div class="rank">
-                                <span class="pull-right">01 <sup>st</sup></span>
-                            </div>
-                        </div>
-                        <div class="leader_blk color1">
-                            <div class="img_cov">
-                                <img src="./assets/img/female_profile.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="txt_cov">
-                                <span>Sharma Family</span> <br />
-                                <span>48:43:51</span>
-                            </div>
-                            <div class="rank">
-                                <span class="pull-right">01 <sup>st</sup></span>
-                            </div>
-                        </div>
-                        <div class="leader_blk color1">
-                            <div class="img_cov">
-                                <img src="./assets/img/female_profile.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="txt_cov">
-                                <span>Sharma Family</span> <br />
-                                <span>48:43:51</span>
-                            </div>
-                            <div class="rank">
-                                <span class="pull-right">01 <sup>st</sup></span>
-                            </div>
-                        </div>
-                        <div class="leader_blk color1">
-                            <div class="img_cov">
-                                <img src="./assets/img/female_profile.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="txt_cov">
-                                <span>Sharma Family</span> <br />
-                                <span>48:43:51</span>
-                            </div>
-                            <div class="rank">
-                                <span class="pull-right">01 <sup>st</sup></span>
-                            </div>
-                        </div>
-                        <div class="leader_blk color1">
-                            <div class="img_cov">
-                                <img src="./assets/img/female_profile.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="txt_cov">
-                                <span>Sharma Family</span> <br />
-                                <span>48:43:51</span>
-                            </div>
-                            <div class="rank">
-                                <span class="pull-right">01 <sup>st</sup></span>
+                                <span class="pull-right">{{ (i+1) }}<sup>{{ getOrdinalSuffix((i+1)) }}</sup></span>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
-
         </div>
     </div>
 </div>

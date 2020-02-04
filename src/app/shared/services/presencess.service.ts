@@ -16,7 +16,7 @@ export class PresencessService {
   constructor(private angularFireAuth: AngularFireAuth, private db: AngularFireDatabase) {
     //console.log('let there be presence');
     this.updateOnUser().subscribe();
-    this.updateOnDisconnect().subscribe();
+    this.updateOnDisconnect();
     this.updateOnAway();
   }
 
@@ -32,7 +32,8 @@ export class PresencessService {
  async setPresence(status: string) {
     //console.log(this.playerId);
     const user = await this.getUser();
-    if (user) {
+    //if (user) {
+    if(this.playerId && this.playerId != '') {
       //return this.db.object(`status/${user.uid}`).update({ status, timestamp: this.timestamp });
       return this.db.object(`players/`+this.playerId).update({ status, timestamp: this.timestamp });
     }
@@ -53,24 +54,34 @@ export class PresencessService {
     );
   }
 
+  // updateOnDisconnect() {
+  //   return this.angularFireAuth.authState.pipe(
+  //     tap(user => {
+  //       if (user) {
+  //         this.db.object(`players/`+this.playerId).query.ref.onDisconnect()
+  //           .update({
+  //             status: 'offline',
+  //             timestamp: this.timestamp
+  //         });
+  //       }
+  //     })
+  //   );
+  // }
+
   updateOnDisconnect() {
-    return this.angularFireAuth.authState.pipe(
-      tap(user => {
-        if (user) {
-          this.db.object(`players/`+this.playerId).query.ref.onDisconnect()
-            .update({
-              status: 'offline',
-              timestamp: this.timestamp
-          });
-        }
-      })
-    );
+    if(this.playerId && this.playerId != '') {
+      return this.db.object(`players/`+this.playerId).query.ref.onDisconnect()
+        .update({
+          status: 'offline',
+          timestamp: this.timestamp
+      });
+    }
   }
 
-  async signOut() {
-      await this.setPresence('offline');
-      await this.angularFireAuth.auth.signOut();
-  }
+  // async signOut() {
+  //     await this.setPresence('offline');
+  //     await this.angularFireAuth.auth.signOut();
+  // }
 
   updateOnAway() {
     document.onvisibilitychange = (e) => {

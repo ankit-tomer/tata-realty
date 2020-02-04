@@ -72,7 +72,7 @@ export class MemberComponent implements OnInit {
 
         this.authService.setAccount(result.user);
         this.user.uid = result.user.uid;
-        this.userService.getUserByUid(this.user.uid).valueChanges().subscribe(users => {
+        this.userService.getUser(this.user.uid).valueChanges().subscribe(users => {
           //console.log(users[0]);
           let userInfo: User;
           userInfo = users[0];

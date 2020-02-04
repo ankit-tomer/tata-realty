@@ -7,6 +7,8 @@ import { User, Group } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { PresencessService } from 'src/app/shared/services/presencess.service';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-start',
@@ -22,7 +24,8 @@ export class StartComponent implements OnInit {
   user: User;
   player: Player;
   playerId: string;
-
+  groupScore: number;
+  
   presence$;
 
   constructor(private countupTimerService: CountupTimerService, private authService: AuthService, private userService: UserService, private gameService: GameService, private router: Router, private route: ActivatedRoute, private presence: PresencessService) {
@@ -66,19 +69,13 @@ export class StartComponent implements OnInit {
           this.game = game;
           this.game.key = params.get('id');
 
+          this.getGroup();
+
           this.presence$.subscribe(pres => {
-            //console.log(this.game.status);
-            if (this.game.status != 'over') {
-              if (pres.status != 'online') {
-                //console.log('ended');
-
+           
+              if (pres.status != 'online' && this.game.status != 'over') {
+                
                 this.countupTimerService.pauseTimer();
-
-                // this.countupTimerService.getTimerValue().subscribe(time => {
-                //   console.log('time: ' + time);
-                // });
-                // console.log('totalSeconds: ' + this.countupTimerService.totalSeconds);
-                // console.log('timerValue: ' + this.countupTimerService.timerValue.hours + ':' + this.countupTimerService.timerValue.mins + ':' + this.countupTimerService.timerValue.seconds);
 
                 let gameScore = {
                   status: 'over',
@@ -88,27 +85,28 @@ export class StartComponent implements OnInit {
                   scoreSeconds: this.countupTimerService.totalSeconds
                 }
 
-                //console.log(gameScore);
+                let totalScore: number = 0;
+                totalScore = this.groupScore + gameScore.scoreSeconds;
+                
+                console.log(totalScore);
 
                 this.gameService.startGame(this.game.key, gameScore)
                   .then(res => {
-                    this.countupTimerService.stopTimer();
-                    this.router.navigate(['/game/over/' + this.game.key + '/' + this.playerId]);
-                    return false;
+                    this.userService.updateGroup(this.group.key, { totalScore: totalScore })
+                    .then(res => {
+                      this.countupTimerService.stopTimer();
+                      this.router.navigate(['/game/over/' + this.game.key + '/' + this.playerId]);
+                      return false;
+                    });
                   }, err => {
                     //console.log(err);
                   });
               }
-            }
           });
 
           // if(this.presence$.status != 'online') {
           //   console.log(this.presence$.status);
           // }
-
-          this.userService.getGroupsbyUid(this.game.uid).valueChanges().subscribe(groups => {
-            this.group = groups[0];
-          });
 
           switch (this.game.status) {
             case 'created':
@@ -125,6 +123,24 @@ export class StartComponent implements OnInit {
           }
 
         });
+      }
+    });
+  }
+
+  getGroup() {
+    this.userService.getGroupsbyUid(this.game.uid).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(groups => {
+      this.group = groups[0];
+      if (this.group.totalScore) {
+        this.groupScore = this.group.totalScore;
+      }
+      else {
+        this.groupScore = 0;
       }
     });
   }

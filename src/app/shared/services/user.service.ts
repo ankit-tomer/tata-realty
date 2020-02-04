@@ -48,6 +48,10 @@ export class UserService {
     });
   }
 
+  updateGroup(key: string, value: any): Promise<void> {
+    return this.groupsRef.update(key, value);
+  }
+
   setGroup(group: Group) {
     this.group = group;
     localStorage.setItem('group', JSON.stringify(this.group));
@@ -89,14 +93,16 @@ export class UserService {
     return this.groupsMembersRef.update(key, value);
   }
 
-  createUser(user: User) {
-    return new Promise<any>((resolve, reject) => {
-      const ref = this.usersRef.push(user)
-        .then(res => {
-          resolve(res);
-          //console.log(res)
-        }, err => reject(err))
-    });
+  createUser(user: User): Promise<void> {
+    return this.db.object(`users/${user.uid}`).update({ fullName: user.fullName, gender: user.gender, phone: user.phone });
+  }
+
+  updateUser(uid: string, value: any): Promise<void> {
+    return this.db.object(`users/${uid}`).update(value);
+  }
+
+  getUser(uid: string): AngularFireObject<User> {
+    return this.db.object(`users/${uid}`);
   }
 
   setUser(user: User) {
@@ -108,26 +114,12 @@ export class UserService {
     return this.userInfo;
   }
 
-  getUsers(): AngularFireList<User> {
-    this.usersRef = this.db.list(this.dbPathusers, ref => ref.orderByChild('groupId').equalTo(this.getGroup().key));
-    return this.usersRef;
-  }
-
-  getUserById(key: string): AngularFireObject<User> {
-    return this.db.object(this.dbPathusers + '/' + key);
-  }
-
-  updateUser(key: string, value: any): Promise<void> {
-    return this.usersRef.update(key, value);
-  }
-
   getUserByPhone(phone: string): AngularFireList<User> {
     this.usersRef = this.db.list(this.dbPathusers, ref => ref.orderByChild('phone').equalTo(phone));
     return this.usersRef;
   }
 
-  getUserByUid(uid: string): AngularFireList<User> {
-    this.usersRef = this.db.list(this.dbPathusers, ref => ref.orderByChild('uid').equalTo(uid));
-    return this.usersRef;
+  getLeaderboard(): AngularFireList<Group> {
+    return this.db.list(this.dbPathGroups, ref => ref.orderByChild('totalScore').limitToLast(10));
   }
 }

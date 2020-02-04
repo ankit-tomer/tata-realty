@@ -2,6 +2,7 @@ export class Group {
     key: string;
     name: string;
     uid: string;
+    totalScore: number;
 }
 
 export class GroupMember {
