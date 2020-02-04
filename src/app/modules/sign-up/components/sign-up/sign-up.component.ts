@@ -46,6 +46,7 @@ export class SignUpComponent implements OnInit {
     this.userService.getUserByPhone(this.user.phone).valueChanges().subscribe(users => {
       if (users.length > 0) {
         this.toastrService.error('Your phone no is already registered with us.', 'Sign Up');
+        return false;
       }
       else {
         firebase.auth().signInWithPhoneNumber(phoneNumberString, appVerifier)
@@ -76,6 +77,8 @@ export class SignUpComponent implements OnInit {
         if (result.additionalUserInfo.isNewUser) {
 
           this.group.uid = result.user.uid;
+          this.group.totalScore = 0;
+          this.group.gender = this.user.gender;
 
           this.userService.createGroup(this.group)
             .then(res => {
@@ -87,8 +90,7 @@ export class SignUpComponent implements OnInit {
 
               this.userService.createUser(this.user)
                 .then(res2 => {
-                  //console.log(res);
-                  this.user.key = res2.key;
+                  //console.log(res2);
                   this.userService.setUser(this.user);
 
                   this.groupMember.name = this.user.fullName;

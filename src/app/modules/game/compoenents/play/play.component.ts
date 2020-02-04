@@ -23,12 +23,14 @@ export class PlayComponent implements OnInit {
   isAdmin: boolean = false;
 
   user: User;
+  player: Player;
   playerId: string;
 
   constructor(private authService: AuthService, private userService: UserService, private gameService: GameService, private router: Router, private route: ActivatedRoute, private presence: PresencessService) {
     this.game = new Game();
     this.user = new User();
     this.group = new Group();
+    this.player = new Player();
   }
 
   ngOnInit() {
@@ -37,7 +39,12 @@ export class PlayComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       if (params.get('id')) {
         this.playerId = params.get('player');
+
         this.presence.playerId = this.playerId;
+
+        this.gameService.getPlayer(this.playerId).valueChanges().subscribe(player => {
+          this.player = player;
+        });
 
         this.gameService.getGame(params.get('id')).valueChanges().subscribe(game => {
           this.game = game;
@@ -52,7 +59,7 @@ export class PlayComponent implements OnInit {
           this.userService.getGroupsbyUid(this.game.uid).valueChanges().subscribe(groups => {
             this.group = groups[0];
           });
-
+ 
           switch (this.game.status) {
             case 'created':
 
@@ -107,6 +114,7 @@ export class PlayComponent implements OnInit {
     this.gameService.startGame(this.game.key, { status: 'prepared' })
       .then(res => {
         this.router.navigate(['/game/prepare/' + this.game.key + '/' + this.playerId]);
+        console.log('prepared')
       }, err => {
         //console.log(err);
       });

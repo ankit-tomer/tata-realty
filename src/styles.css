@@ -51,7 +51,7 @@ header{
 	height:64px;
 	z-index: 99;
 	padding:10px;
-	background: #face48;
+	background: #fece31;
 }
 
 .regi_bg{
@@ -234,6 +234,8 @@ header a.close_me{
 	width:100%;
 	margin-top: 10px;
 	margin-bottom: 0;
+	font-size: 24px;
+
 }
 
 

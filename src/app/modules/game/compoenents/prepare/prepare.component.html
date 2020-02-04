@@ -26,7 +26,7 @@
                 Any movement will stop your score. </p>
 
             <h2>Game will start in</h2>
-            <h1><countdown-timer [countDownTimerConfig]="timerConfig"></countdown-timer></h1>
+            <h1><countdown #cd [config]="{leftTime: 5, format: 'ss'}" (event)="handleEvent($event)"></countdown></h1>
 
             <!-- <a href="#" class="pause_button">
                 pause

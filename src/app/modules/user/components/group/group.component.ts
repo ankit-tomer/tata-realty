@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Group, GroupMember } from 'src/app/interfaces/user';
+import { Group, GroupMember, User } from 'src/app/interfaces/user';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -13,10 +13,12 @@ import { map } from 'rxjs/operators';
 export class GroupComponent implements OnInit {
 
   group: Group;
+  user: User;
   groupMembers: GroupMember[];
 
   constructor(private authService: AuthService, private userService: UserService, private router: Router, private route: ActivatedRoute) { 
     this.group = new Group();
+    this.user = new User();
   }
 
   ngOnInit() {
@@ -41,6 +43,13 @@ export class GroupComponent implements OnInit {
     ).subscribe(members => {
       //console.log(users)
       this.groupMembers = members;
+      for (var member of this.groupMembers) {
+        if (member.isAdmin) {
+          this.userService.getUser(member.uid).valueChanges().subscribe(user => {
+            this.user = user;
+          })
+        }
+      }
     });
   }
 

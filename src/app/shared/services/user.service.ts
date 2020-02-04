@@ -18,24 +18,24 @@ export class UserService {
   group: Group;
   userInfo: User
 
-  constructor(private authService: AuthService, private db: AngularFireDatabase) { 
+  constructor(private authService: AuthService, private db: AngularFireDatabase) {
     this.groupsRef = db.list(this.dbPathGroups);
     this.groupsMembersRef = db.list(this.dbPathGroupMembers);
     this.usersRef = db.list(this.dbPathusers);
 
-    if(localStorage.getItem('group')){
-			this.group = JSON.parse(localStorage.getItem('group'));
-		}
-		else{
-			this.group = new Group();
+    if (localStorage.getItem('group')) {
+      this.group = JSON.parse(localStorage.getItem('group'));
     }
-    
-    if(localStorage.getItem('userInfo')){
-			this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-		}
-		else{
-			this.userInfo = new User();
-		}
+    else {
+      this.group = new Group();
+    }
+
+    if (localStorage.getItem('userInfo')) {
+      this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    }
+    else {
+      this.userInfo = new User();
+    }
   }
 
   createGroup(group: Group) {
@@ -48,6 +48,10 @@ export class UserService {
     });
   }
 
+  updateGroup(key: string, value: any): Promise<void> {
+    return this.groupsRef.update(key, value);
+  }
+
   setGroup(group: Group) {
     this.group = group;
     localStorage.setItem('group', JSON.stringify(this.group));
@@ -58,7 +62,7 @@ export class UserService {
   }
 
   getGroupById(key: string): AngularFireObject<Group> {
-    return this.db.object(this.dbPathGroups +'/'+ key);
+    return this.db.object(this.dbPathGroups + '/' + key);
   }
 
   getGroupsbyUid(uid: string) {
@@ -82,21 +86,23 @@ export class UserService {
   }
 
   getMemberById(key: string): AngularFireObject<GroupMember> {
-    return this.db.object(this.dbPathGroupMembers +'/'+ key);
+    return this.db.object(this.dbPathGroupMembers + '/' + key);
   }
 
   updateMember(key: string, value: any): Promise<void> {
     return this.groupsMembersRef.update(key, value);
   }
 
-  createUser(user: User) {
-    return new Promise<any>((resolve, reject) => {
-      const ref = this.usersRef.push(user)
-        .then(res => {
-          resolve(res);
-          //console.log(res)
-        }, err => reject(err))
-    });
+  createUser(user: User): Promise<void> {
+    return this.db.object(`users/${user.uid}`).update({ fullName: user.fullName, gender: user.gender, phone: user.phone });
+  }
+
+  updateUser(uid: string, value: any): Promise<void> {
+    return this.db.object(`users/${uid}`).update(value);
+  }
+
+  getUser(uid: string): AngularFireObject<User> {
+    return this.db.object(`users/${uid}`);
   }
 
   setUser(user: User) {
@@ -108,21 +114,16 @@ export class UserService {
     return this.userInfo;
   }
 
-  getUsers(): AngularFireList<User> {
-    this.usersRef = this.db.list(this.dbPathusers, ref => ref.orderByChild('groupId').equalTo(this.getGroup().key));
-    return this.usersRef;
-  }
-
-  getUserById(key: string): AngularFireObject<User> {
-    return this.db.object(this.dbPathusers +'/'+ key);
-  }
-
-  updateUser(key: string, value: any): Promise<void> {
-    return this.usersRef.update(key, value);
-  }
-
   getUserByPhone(phone: string): AngularFireList<User> {
     this.usersRef = this.db.list(this.dbPathusers, ref => ref.orderByChild('phone').equalTo(phone));
     return this.usersRef;
+  }
+
+  getGroups(): AngularFireList<Group> {
+    return this.db.list(this.dbPathGroups, ref => ref.orderByChild('totalScore'));
+  }
+
+  getLeaderboard(): AngularFireList<Group> {
+    return this.db.list(this.dbPathGroups, ref => ref.orderByChild('totalScore').limitToLast(10));
   }
 }

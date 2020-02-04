@@ -72,9 +72,16 @@ export class MemberComponent implements OnInit {
 
         this.authService.setAccount(result.user);
         this.user.uid = result.user.uid;
-        this.userService.setUser(this.user);
-
-        this.router.navigate(['/user']);
+        console.log(this.user.uid)
+        this.userService.getUser(this.user.uid).valueChanges().subscribe(user => {
+          console.log(user);
+          let userInfo: User = new User();
+          userInfo = user;
+          userInfo.uid = this.user.uid;
+          //console.log(userInfo);
+          this.userService.setUser(userInfo);
+          this.router.navigate(['/user']);
+        });
       })
       .catch((err) => {
         this.toastrService.error(err, 'Sign Up');

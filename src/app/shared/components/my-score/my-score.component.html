@@ -1,0 +1,11 @@
+<div>
+    <div class="inner">
+        <div class="img_cov"  [ngStyle]="{'background': 'url(./assets/img/'+user.gender+'_profile.jpg) no-repeat 100% 100%'}" style="-webkit-background-size: cover;
+             -moz-background-size: cover;
+             -o-background-size: cover;
+             background-size: cover;">
+        </div>
+        <p class="name"><span>{{ group.name }}</span> <br /><span> {{ groupScore }}</span> </p>
+        <span class="numb pull-right">{{ currentPosition }}<sup>{{ getOrdinalSuffix(currentPosition) }}</sup></span>
+    </div>
+</div>

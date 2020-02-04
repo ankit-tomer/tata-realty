@@ -100,7 +100,6 @@ export class ByInviteComponent implements OnInit {
           this.userService.createUser(this.user)
             .then(res => {
 
-              this.user.key = res.key;
               this.userService.setUser(this.user);
 
               this.userService.updateMember(this.groupMember.key, { uid: this.user.uid })

@@ -11,37 +11,18 @@
 <app-menu></app-menu>
 
 <div class="wrapper regi_bg">
-    
-    <app-header></app-header>
-    
+
+    <app-header [centerLogo]="false"></app-header>
+
     <div class="container">
         <div class="logo_main text-center">
             <a routerLink="/">
-<<<<<<< HEAD
-<<<<<<< HEAD
-              <img src="assets/img/PhoneChhodoDilJodo.svg" class="img-fluid" alt="">
-=======
-              <img src="assets/img/PhoneChhodoDilJodo.svg" class="img-fluid" alt="">
->>>>>>> aa4ad757ed99ebad9fba528c74cc2202a8928d90
-=======
-              <img src="assets/img/main_logo.png" class="img-fluid" alt="">
->>>>>>> ae52df819b8dcd0e600905988ed078dbb2320613
+                <img src="assets/img/PhoneChhodoDilJodo.svg" class="img-fluid" alt="">
             </a>
-          </div>
+        </div>
         <div class="main row">
-            <div class="family_patch regi_fami_patch col-10 offset-1">
-                <div class="inner">
-                    <div class="img_cov" style=" background: url(./assets/img/male_profile.jpg) no-repeat 100% 100%; 
-               -webkit-background-size: cover;
-               -moz-background-size: cover;
-               -o-background-size: cover;
-               background-size: cover;">
-
-                    </div>
-                    <p class="name"><span>Poipkar’s Family</span> <br /><span> 48:43:51</span> </p>
-                    <span class="numb pull-right">09<sup>th</sup></span>
-                </div>
-            </div>
+            <app-my-score [group]="group" [user]="user" class="family_patch regi_fami_patch col-10 offset-1">
+            </app-my-score>
             <div class="blue_texture start_ablue col-12">
                 <img src="assets/img/blue-bg.png" class="overlay" alt="">
                 <div class="inner_cov">
@@ -60,4 +41,3 @@
         </div>
     </div>
 </div>
-

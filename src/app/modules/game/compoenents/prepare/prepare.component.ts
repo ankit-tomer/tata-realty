@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { countDownTimerConfigModel, countDownTimerTexts, CountdownTimerService } from 'ngx-timer';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GameService } from 'src/app/shared/services/game.service';
-import { Game } from 'src/app/interfaces/game';
+import { Game, Player } from 'src/app/interfaces/game';
+import { User } from 'src/app/interfaces/user';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-prepare',
@@ -11,32 +13,30 @@ import { Game } from 'src/app/interfaces/game';
 })
 export class PrepareComponent implements OnInit {
 
-  timerConfig: countDownTimerConfigModel;
   game: Game;
+
+  user: User;
+  player: Player;
 
   playerId: string;
 
-  constructor(private countdownTimerService: CountdownTimerService, private gameService: GameService, private router: Router, private route: ActivatedRoute) {
+  constructor(private authService: AuthService, private userService: UserService, private gameService: GameService, private router: Router, private route: ActivatedRoute) {
     this.game = new Game();
+    this.user = new User();
+    this.player = new Player();
   }
 
   ngOnInit() {
 
-    //countUpTimerConfigModel
-    this.timerConfig = new countDownTimerConfigModel();
-
-    //custom class
-    this.timerConfig.timerClass = 'test_Timer_class';
-
-    //timer text values  
-    this.timerConfig.timerTexts = new countDownTimerTexts();
-    this.timerConfig.timerTexts.hourText = " hrs."; //default - hh
-    this.timerConfig.timerTexts.minuteText = " mins."; //default - mm
-    this.timerConfig.timerTexts.secondsText = " secs."; //default - ss
+    this.user = this.userService.getUserInfo();
 
     this.route.paramMap.subscribe(params => {
       if (params.get('id')) {
         this.playerId = params.get('player');
+
+        this.gameService.getPlayer(this.playerId).valueChanges().subscribe(player => {
+          this.player = player;
+        });
 
         this.gameService.getGame(params.get('id')).valueChanges().subscribe(game => {
           this.game = game;
@@ -56,26 +56,21 @@ export class PrepareComponent implements OnInit {
               this.router.navigate(['/game/over/' + this.game.key + '/' + this.playerId]);
               break;
           }
-
-          let cdate = new Date();
-          cdate.setHours(cdate.getHours());
-          cdate.setSeconds(cdate.getSeconds() + 16);
-          this.countdownTimerService.startTimer(cdate);
-
-          this.countdownTimerService.onTimerStatusChange.subscribe(status => {
-            if (status && status == 'STOP') {
-              this.gameService.startGame(this.game.key, { status: 'started' })
-                .then(res => {
-                  this.router.navigate(['/game/start/' + this.game.key + '/' + this.playerId]);
-                }, err => {
-                  //console.log(err);
-                });
-            }
-          });
-
         });
       }
     });
   }
 
+
+  handleEvent(e) {
+    if(e.left == 0) {
+      this.gameService.startGame(this.game.key, { status: 'started' })
+      .then(res => {
+        this.router.navigate(['/game/start/' + this.game.key + '/' + this.playerId]);
+        //console.log('started');
+      }, err => {
+        //console.log(err);
+      });
+    }
+  }
 }

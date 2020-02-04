@@ -1,7 +1,9 @@
 export class Group {
     key: string;
     name: string;
+    gender: string;
     uid: string;
+    totalScore: number;
 }
 
 export class GroupMember {

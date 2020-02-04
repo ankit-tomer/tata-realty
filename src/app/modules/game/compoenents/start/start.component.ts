@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { countUpTimerConfigModel, timerTexts, CountupTimerService } from 'ngx-timer';
-import { Game } from 'src/app/interfaces/game';
+import { Game, Player } from 'src/app/interfaces/game';
 import { GameService } from 'src/app/shared/services/game.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User, Group } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { PresencessService } from 'src/app/shared/services/presencess.service';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-start',
@@ -20,16 +22,20 @@ export class StartComponent implements OnInit {
   group: Group;
 
   user: User;
+  player: Player;
   playerId: string;
-
+  groupScore: number;
+  
   presence$;
 
   constructor(private countupTimerService: CountupTimerService, private authService: AuthService, private userService: UserService, private gameService: GameService, private router: Router, private route: ActivatedRoute, private presence: PresencessService) {
     this.game = new Game();
     this.group = new Group();
+    this.player = new Player();
   }
 
   ngOnInit() {
+    this.user = this.userService.getUserInfo();
 
     //countUpTimerConfigModel
     this.timerConfig = new countUpTimerConfigModel();
@@ -46,58 +52,97 @@ export class StartComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       if (params.get('id')) {
         this.playerId = params.get('player');
+
+        this.gameService.getPlayer(this.playerId).valueChanges().subscribe(player => {
+          this.player = player;
+        });
+
         this.presence.playerId = this.playerId;
         this.presence$ = this.presence.getPresence(this.playerId);
+
+        let cdate = new Date();
+        cdate.setHours(cdate.getHours());
+        cdate.setSeconds(cdate.getSeconds());
+        this.countupTimerService.startTimer(cdate);
 
         this.gameService.getGame(params.get('id')).valueChanges().subscribe(game => {
           this.game = game;
           this.game.key = params.get('id');
 
+          this.getGroup();
+
           this.presence$.subscribe(pres => {
-            //console.log(pres);
-            if (pres.status != 'online') {
-              this.gameService.startGame(this.game.key, { status: 'over' })
-                .then(res => {
-                  this.router.navigate(['/game/over/' + this.game.key + '/' + this.playerId]);
-                }, err => {
-                  //console.log(err);
-                });
-            }
-          })
+           
+              if (pres.status != 'online' && this.game.status != 'over') {
+                
+                this.countupTimerService.pauseTimer();
+
+                let gameScore = {
+                  status: 'over',
+                  endedById: this.user.uid,
+                  endedByName: this.player.name,
+                  score: this.countupTimerService.timerValue.hours + ':' + this.countupTimerService.timerValue.mins + ':' + this.countupTimerService.timerValue.seconds,
+                  scoreSeconds: this.countupTimerService.totalSeconds
+                }
+
+                let totalScore: number = 0;
+                totalScore = this.groupScore + gameScore.scoreSeconds;
+                
+                console.log(totalScore);
+
+                this.gameService.startGame(this.game.key, gameScore)
+                  .then(res => {
+                    this.userService.updateGroup(this.group.key, { totalScore: totalScore })
+                    .then(res => {
+                      this.countupTimerService.stopTimer();
+                      this.router.navigate(['/game/over/' + this.game.key + '/' + this.playerId]);
+                      return false;
+                    });
+                  }, err => {
+                    //console.log(err);
+                  });
+              }
+          });
+
           // if(this.presence$.status != 'online') {
           //   console.log(this.presence$.status);
           // }
 
-          this.userService.getGroupsbyUid(this.game.uid).valueChanges().subscribe(groups => {
-            this.group = groups[0];
-          });
-
-          // switch (this.game.status) {
-          //   case 'created':
-          //     break;
-          //   case 'prepared':
-          //     this.router.navigate(['/game/prepare/' + this.game.key + '/' + this.playerId]);
-          //     break;
-          //   case 'started':
-          //     this.router.navigate(['/game/start/' + this.game.key + '/' + this.playerId]);
-          //     break;
-          //   case 'over':
-          //     this.router.navigate(['/game/over/' + this.game.key + '/' + this.playerId]);
-          //     break;
-          // }
-
-          let cdate = new Date();
-          cdate.setHours(cdate.getHours());
-          cdate.setSeconds(cdate.getSeconds());
-          this.countupTimerService.startTimer(cdate);
+          switch (this.game.status) {
+            case 'created':
+              break;
+            case 'prepared':
+              this.router.navigate(['/game/prepare/' + this.game.key + '/' + this.playerId]);
+              break;
+            case 'started':
+              this.router.navigate(['/game/start/' + this.game.key + '/' + this.playerId]);
+              break;
+            case 'over':
+              this.router.navigate(['/game/over/' + this.game.key + '/' + this.playerId]);
+              break;
+          }
 
         });
       }
     });
   }
 
-  onStop() {
-    this.countupTimerService.pauseTimer();
+  getGroup() {
+    this.userService.getGroupsbyUid(this.game.uid).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(groups => {
+      this.group = groups[0];
+      if (this.group.totalScore) {
+        this.groupScore = this.group.totalScore;
+      }
+      else {
+        this.groupScore = 0;
+      }
+    });
   }
 
 }

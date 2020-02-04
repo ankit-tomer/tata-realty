@@ -2,7 +2,10 @@ export class Game {
     key: string;
     uid: string;
     status: string;
-    score: number;
+    score: string;
+    scoreSeconds: number;
+    endedById: string;
+    endedByName: string; 
 }
 
 export class Player {
@@ -11,6 +14,6 @@ export class Player {
     name: string;
     uid: string;
     isAdmin: boolean;
-    status: string
-    timestamp: string
+    status: string;
+    timestamp: string;
 }
