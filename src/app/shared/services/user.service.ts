@@ -119,6 +119,10 @@ export class UserService {
     return this.usersRef;
   }
 
+  getGroups(): AngularFireList<Group> {
+    return this.db.list(this.dbPathGroups, ref => ref.orderByChild('totalScore'));
+  }
+
   getLeaderboard(): AngularFireList<Group> {
     return this.db.list(this.dbPathGroups, ref => ref.orderByChild('totalScore').limitToLast(10));
   }
