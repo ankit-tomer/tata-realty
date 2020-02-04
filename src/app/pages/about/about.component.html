@@ -13,31 +13,15 @@
 <div class="wrapper leader_bg">
     
     <app-header [centerLogo]="false"></app-header>
-
-    <div class="family_patch regi_fami_patch leader_fam_patch col-10 offset-1">
-        <div class="inner">
-            <div class="img_cov" style=" background: url(./assets/img/male_profile.jpg) no-repeat 100% 100%; 
-         -webkit-background-size: cover;
-         -moz-background-size: cover;
-         -o-background-size: cover;
-         background-size: cover;">
-
-            </div>
-            <p class="name"><span>Poipkar’s Family</span> <br /><span> 48:43:51</span> </p>
-            <span class="numb pull-right">09<sup>th</sup></span>
-        </div>
-    </div>
     <div class="container">
-
-
-
-        <div class="in_out_time col-10 offset-1">
-            <div class="theme_blue txt">TODAYS TIME:</div>
-            <div><span>&nbsp; HR. &nbsp;&nbsp;&nbsp;&nbsp; MIN. &nbsp;&nbsp;&nbsp;&nbsp; SEC.</span><br /> 02:19:45
-            </div>
-            <div class="theme_blue txt">TOTAL TIME:</div>
-            <div><span>&nbsp; HR. &nbsp;&nbsp;&nbsp;&nbsp; MIN. &nbsp;&nbsp;&nbsp;&nbsp; SEC.</span> <br /> 29:12:33
-            </div>
+        <div class="logo_main text-center">
+            <a routerLink="/" *ngIf="!user.uid">
+                <img src="assets/img/PhoneChhodoDilJodo.svg" class="img-fluid" alt="">
+            </a>
+        </div>
+        <div class="main row" *ngIf="user.uid">
+            <app-my-score [group]="group" [user]="user" class="family_patch regi_fami_patch col-10 offset-1">
+            </app-my-score>
         </div>
         <div class="main row blue_texture">
             <div class="container leader_board_cov">

@@ -20,9 +20,11 @@ export class LeaderboardComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.userService.getUserInfo();
-    this.userService.getGroupsbyUid(this.user.uid).valueChanges().subscribe(groups => {
-      this.group = groups[0];
-    });
+    if(this.user.uid && this.user.uid != null) {
+      this.userService.getGroupsbyUid(this.user.uid).valueChanges().subscribe(groups => {
+        this.group = groups[0];
+      });
+    }
     this.userService.getLeaderboard().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
