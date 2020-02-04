@@ -78,6 +78,7 @@ export class SignUpComponent implements OnInit {
 
           this.group.uid = result.user.uid;
           this.group.totalScore = 0;
+          this.group.gender = this.user.gender;
 
           this.userService.createGroup(this.group)
             .then(res => {

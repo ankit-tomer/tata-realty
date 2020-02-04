@@ -48,13 +48,15 @@ export class MyScoreComponent implements OnInit {
         )
       )
     ).subscribe(groups => {
-      this.groups = groups;
-      let pos: number = 1;
+      this.groups = groups.reverse();
+      //console.log(groups);
+      let pos: number = 0;
       for (let group of groups) {
         pos++;
         if (group.key == group.key) {
+          //console.log(pos);
           this.currentPosition = pos;
-          return false;
+          //return false;
         }
       }
     });

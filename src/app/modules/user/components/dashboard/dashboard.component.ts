@@ -76,6 +76,7 @@ export class DashboardComponent implements OnInit {
 
   onSubmitGroup() {
     this.group.uid = this.user.uid;
+    this.group.gender = this.user.gender;
     this.userService.createGroup(this.group)
       .then(res => {
         this.group.key = res.key;

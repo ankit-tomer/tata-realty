@@ -29,7 +29,7 @@
                     <div class="col-10 offset-1">
                         <div class="leader_blk color1" *ngFor="let group of groups; index as i">
                             <div class="img_cov">
-                                <img src="./assets/img/female_profile.jpg" class="img-fluid" alt="">
+                                <img src="./assets/img/{{ group.gender }}_profile.jpg" class="img-fluid" alt="">
                             </div>
                             <div class="txt_cov">
                                 <span>{{ group.name }}</span> <br />
