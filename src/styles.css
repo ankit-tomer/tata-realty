@@ -374,6 +374,10 @@ div.form-control{
   color: #d2d2d2;
 }
 
+.leader_scroll ul{
+	color:#fff;
+	padding-left: 10px;
+}
 
 .already_rigy{
 	color:#333;
