@@ -8,8 +8,6 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { PresencessService } from 'src/app/shared/services/presencess.service';
 import { map } from 'rxjs/operators';
-import * as NoSleep from 'nosleep.js';
-declare var getPermission: any;
 
 @Component({
   selector: 'app-start',
@@ -28,13 +26,11 @@ export class StartComponent implements OnInit {
   groupScore: number;
   
   presence$;
-  noSleep: NoSleep;
 
   constructor(private countupTimerService: CountupTimerService, private authService: AuthService, private userService: UserService, private gameService: GameService, private router: Router, private route: ActivatedRoute, private presence: PresencessService) {
     this.game = new Game();
     this.group = new Group();
     this.player = new Player();
-    this.noSleep = new NoSleep();
   }
 
   ngOnInit() {
@@ -67,15 +63,13 @@ export class StartComponent implements OnInit {
         cdate.setHours(cdate.getHours());
         cdate.setSeconds(cdate.getSeconds());
         this.countupTimerService.startTimer(cdate);
-        this.noSleep.enable();
+        //this.noSleep.enable();
 
         this.gameService.getGame(params.get('id')).valueChanges().subscribe(game => {
           this.game = game;
           this.game.key = params.get('id');
 
-          this.getGroup();
-
-          getPermission();          
+          this.getGroup();          
 
           this.presence$.subscribe(pres => {
            
@@ -94,7 +88,7 @@ export class StartComponent implements OnInit {
                 let totalScore: number = 0;
                 totalScore = this.groupScore + gameScore.scoreSeconds;
                 
-                console.log(totalScore);
+                //console.log(totalScore);
 
                 this.gameService.startGame(this.game.key, gameScore)
                   .then(res => {

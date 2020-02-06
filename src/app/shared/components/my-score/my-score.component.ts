@@ -22,7 +22,7 @@ export class MyScoreComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
+    //console.log(changes);
     if(changes.group.currentValue.name) {
       this.groupScore = this.secondsToTime(this.group.totalScore);
       this.getCurrentPosition(this.group);

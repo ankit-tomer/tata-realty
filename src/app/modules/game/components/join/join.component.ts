@@ -7,13 +7,16 @@ import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { User, Group } from 'src/app/interfaces/user';
+declare var getPermission: any;
+import * as NoSleep from 'nosleep.js';
+import { analytics } from 'firebase';
 
 @Component({
-  selector: 'app-play',
-  templateUrl: './play.component.html',
-  styleUrls: ['./play.component.css']
+  selector: 'app-join',
+  templateUrl: './join.component.html',
+  styleUrls: ['./join.component.css']
 })
-export class PlayComponent implements OnInit {
+export class JoinComponent implements OnInit {
 
   game: Game;
   players: Player[];
@@ -26,11 +29,14 @@ export class PlayComponent implements OnInit {
   player: Player;
   playerId: string;
 
-  constructor(private authService: AuthService, private userService: UserService, private gameService: GameService, private router: Router, private route: ActivatedRoute, private presence: PresencessService) {
+  noSleep: NoSleep;
+
+  constructor(private authService: AuthService, private userService: UserService, private gameService: GameService, private router: Router, private route: ActivatedRoute) {
     this.game = new Game();
     this.user = new User();
     this.group = new Group();
     this.player = new Player();
+    this.noSleep = new NoSleep();
   }
 
   ngOnInit() {
@@ -39,8 +45,6 @@ export class PlayComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       if (params.get('id')) {
         this.playerId = params.get('player');
-
-        this.presence.playerId = this.playerId;
 
         this.gameService.getPlayer(this.playerId).valueChanges().subscribe(player => {
           this.player = player;
@@ -110,14 +114,23 @@ export class PlayComponent implements OnInit {
     });
   }
 
-  onStart() {
-    this.gameService.startGame(this.game.key, { status: 'prepared' })
-      .then(res => {
-        this.router.navigate(['/game/prepare/' + this.game.key + '/' + this.playerId]);
-        console.log('prepared')
-      }, err => {
-        //console.log(err);
-      });
+  onJoin() {
+    console.log('clicked');
+    getPermission.then(this.goToGamePlay.bind(this), function(err) {
+      console.log(err); // Error: "It broke"
+    });
+
+    this.noSleep.enable();
+    this.router.navigate(['/game/play/' + this.game.key + '/' + this.playerId]);
   }
+
+  //this.goToGamePlay.bind(this)
+
+  goToGamePlay() {
+    console.log(this);
+    this.noSleep.enable();
+    this.router.navigate(['/game/play/' + this.game.key + '/' + this.playerId]);
+  }
+
 
 }
