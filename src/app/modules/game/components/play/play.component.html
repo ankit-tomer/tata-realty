@@ -1,0 +1,72 @@
+<div id="preloader_cov">
+    <div class="inner">
+        <div class="preloader_bar">
+            <!-- <div class="preloader_circle"></div>
+     <p>Loading</p> -->
+            <!-- <img src="./assets/img/animated-horse-gif-45.gif" class="img-fluid" alt=""> -->
+        </div>
+    </div>
+</div>
+
+<app-menu></app-menu>
+
+<div class="wrapper regi_bg">
+    
+    <app-header [centerLogo]="false"></app-header>
+
+    <div class="container">
+        <div class="logo_main text-center">
+            <a routerLink="/">
+
+              <img src="assets/img/PhoneChhodoDilJodo.svg" class="img-fluid" alt="">
+            </a>
+          </div>
+        <div class="main row">
+            <app-my-score [group]="group" [user]="user" class="family_patch regi_fami_patch col-10 offset-1"></app-my-score>
+            <div class="col-10 offset-1">
+                <div class="form-group col-12" *ngFor="let player of players">
+                    <div class="name_prefilled form-control">{{ player.name }}</div>
+                    
+                    <span class="remark" [ngClass]="{
+                'rem_success':  player.status  === 'online',
+                'reg_admin': player.status  === 'away',
+                'rem_pending':  player.status  === 'offline'
+            }" *ngIf="player.status">
+                        {{ player.status }}
+                    </span>
+
+                    <span class="remark rem_pending" *ngIf="!player.status">Pending</span>
+                </div>
+                <div class="form-group col-12" *ngFor="let player of players">
+                    <div class="row" *ngIf="isAdmin && !player.isAdmin">
+                        <div class="col-12 padd_r0 text-left">
+                            {{ player.name }} <br/>https://upcomingprojects.in/game/join/{{ game.key }}/{{ player.key }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12">
+                    <div class="row" *ngIf="canBeStarted && isAdmin">
+                        <div class="col-6 padd_r0 text-left">
+                            <button type="button" (click)="onStart()" class="verify_btn">
+                                Start Game <i class="fa fa-caret-right"></i>
+                            </button>
+                        </div>
+                        <p>&nbsp;</p>
+                    </div>
+                    <div class="row" *ngIf="isAdmin && !canBeStarted">
+                        <div class="col-12 padd_r0 text-center of_white_bg">
+                            Waiting for players to join...
+                        </div>
+                        <p>&nbsp;</p>
+                    </div>
+                    <div class="row" *ngIf="!isAdmin">
+                        <div class="col-12 padd_r0 text-center of_white_bg">
+                            Waiting for admin to start the game...
+                        </div>
+                        <p>&nbsp;</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
