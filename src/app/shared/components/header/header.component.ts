@@ -18,10 +18,15 @@ export class HeaderComponent implements OnInit {
 
   openMenu() {
     jQuery('.menu_cover').addClass('active');
-    jQuery('.menu_icon .burger_ico').hide(function(){
-      jQuery('header a.close_me').fadeIn();
-      //console.log('demo');
-    });
+    
+    // jQuery('.menu_icon .burger_ico').hide(function(){
+      
+    //   //console.log('demo');
+    // });
+  }
+
+  closeMenu(){
+    jQuery('.menu_cover').removeClass('active');
   }
 
 }

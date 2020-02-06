@@ -18,12 +18,12 @@ export class MenuComponent implements OnInit {
         }, 1000);
       });
 
-      jQuery('header a.close_me').click(function () {
-        jQuery('.menu_cover').removeClass('active');
-        jQuery('header a.close_me').hide(function(){
-          jQuery('.menu_icon .burger_ico').fadeIn();
-        });
-      });
+      // jQuery('header a.close_me').click(function () {
+      //   jQuery('.menu_cover').removeClass('active');
+      //   jQuery('header a.close_me').hide(function(){
+      //     jQuery('.menu_icon .burger_ico').fadeIn();
+      //   });
+      // });
 
     });
   }

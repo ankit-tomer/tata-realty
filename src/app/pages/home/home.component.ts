@@ -9,9 +9,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   slides = [
-    { img: "assets/img/home_bg_01.png", title: 'Phone Time. Family Time.', description: 'Turn time-away-from-phone to quality-time-with-your-loved-ones.' },
-    { img: "assets/img/home_bg_02.png", title: 'Put your phone down. See the world #NoFilter.', description: 'Start up a card game. Dig into some banter.Enjoy some unplugged family moments.' },
-    { img: "assets/img/home_bg_03.png", title: 'Winners get prizes. Losers get warm hugs.', description: 'Keep phones aside. Spend time with family. Stand a chance to win goodies.Simple.' },
+    { img: "assets/img/home_bg_01.png", title: 'Phone Time or Family Time.', description: 'That moment when –‘time-away-from-phone’turns to‘quality-time-with-loved-ones' },
+    { img: "assets/img/home_bg_02.png", title: 'Step up your game!It\'s that simple.Literally.', description: 'Phone chodo Dil jodo step by step' },
+    { img: "assets/img/home_bg_03.png", title: 'Put your phone down. Connect with loved ones.', description: 'Start up a card game. Dig into a banter. Enjoy some unplugged moments.' },
   ];
   slideConfig = {
     dots: false,

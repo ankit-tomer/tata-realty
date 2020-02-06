@@ -128,7 +128,7 @@ header{
 
 .menu_cover{
 	position: fixed;
-	z-index: 9;
+	z-index: 99;
 	width: 100%;
 	min-height: 100vh;
 	top:0;
@@ -136,6 +136,18 @@ header{
 	padding-top: 60px;
 	background: #face48;
 	 transition: all 0.5s ease;
+}
+
+.close_me{
+	position: absolute;
+    top: -10px;
+    color: #000;
+    right: -5px;
+    font-size: 25px;
+    display: none;
+    width: 50px;
+    height: 50px;
+    z-index: 0;
 }
 
 .menu_copyr{
@@ -151,6 +163,14 @@ header{
 	left:0%;
 }
 
+.menu_cover.active .menu_icon .burger_ico{
+	display:none;
+}
+
+.menu_cover.active .menu_icon .close_me{
+	display:block;
+}
+
 .menu_cover ul {
 	display: block;
 	padding:0;
@@ -160,14 +180,7 @@ header{
 	display: block;
 }
 
-header a.close_me{
-	position: absolute;
-    top: -10px;
-    color: #000;
-    right: 0;
-    font-size: 25px;
-	display:none;
-}
+
 
 .menu_cover ul li a{
 	height: 10vh;
