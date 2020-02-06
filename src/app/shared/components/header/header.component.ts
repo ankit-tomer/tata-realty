@@ -10,6 +10,9 @@ export class HeaderComponent implements OnInit {
 
   @Input() centerLogo: boolean;
 
+  showMenuIcon: boolean = true;
+  showCloseIcon: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
@@ -18,7 +21,8 @@ export class HeaderComponent implements OnInit {
 
   openMenu() {
     jQuery('.menu_cover').addClass('active');
-    
+    this.showMenuIcon = false;
+    this.showCloseIcon = true;
     // jQuery('.menu_icon .burger_ico').hide(function(){
       
     //   //console.log('demo');
@@ -27,6 +31,8 @@ export class HeaderComponent implements OnInit {
 
   closeMenu(){
     jQuery('.menu_cover').removeClass('active');
+    this.showMenuIcon = true;
+    this.showCloseIcon = false;
   }
 
 }

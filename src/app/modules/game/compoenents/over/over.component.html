@@ -30,27 +30,34 @@
                         {{ game.endedByName }} lifted his phone. <br/> Your score. </h3>
                     <div class="timer_patch">
                         <div class="time_block">
-                            <p>HR.</p>
+                            
                             <h1>
-                                {{ score[0] }}:
+                                <span>{{score[0]}}</span>
+                                <span>HRS.</span>
                             </h1>
+                            <!-- <p>HR.</p> -->
                         </div>
                         <div class="time_block">
-                            <p>MIN.</p>
+                            
                             <h1>
-                                {{ score[1] }}:
+                                <span>{{score[1]}}</span>
+                                <span>MINS.</span>
                             </h1>
+                            <!-- <p>MIN.</p> -->
                         </div>
                         <div class="time_block">
-                            <p>SEC.</p>
+                            
                             <h1>
-                                {{ score[2] }}
+                                <span>{{score[2]}}</span>
+                                <span>SECS.</span>
                             </h1>
+                            <!-- <p>SEC.</p> -->
                         </div>
                         <div class="timer_txt">
                             <h3>OF TOGETHERNES</h3>
                         </div>
                     </div>
+
                     <div class="col-12 text-center" *ngIf="player.isAdmin">
                         <button class="get_start" (click)="goToDashboard()">
                             Start New Game &nbsp; <i class="fa fa-caret-right"></i>

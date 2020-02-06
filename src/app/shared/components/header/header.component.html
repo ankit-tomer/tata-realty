@@ -1,10 +1,6 @@
 <header>
     <div class="container">
-        <div class="logo_right">
-            <a href="/">
-                <img src="assets/img/tata_realty_logo.svg" class="img-fluid" alt="">
-            </a>
-        </div>
+        
 
         <div class="logo_main logo_home" *ngIf="centerLogo">
             <a href="javascript:;">
@@ -12,14 +8,21 @@
             </a>
         </div>
 
-        <div class="menu_icon">
-            <a href="javascript:;" class="burger_icon" (click)="openMenu()">
-                <img src="assets/img/menu_icon.png" class="img-fluid" alt="">
-            </a>
-            <a href="javascript:;" class="close_me" (click)="closeMenu()">
-                <img src="assets/img/close.png" class="img-fluid" alt="">
-            </a>
-        </div>
+        
            
     </div>
 </header>
+<div class="logo_right">
+    <a href="/">
+        <img src="assets/img/tata_realty_logo.svg" class="img-fluid" alt="">
+    </a>
+</div>
+
+<div class="menu_icon">
+    <a href="javascript:;" class="burger_icon" (click)="openMenu()" *ngIf="showMenuIcon">
+        <img src="assets/img/menu_icon.png" class="img-fluid" alt="">
+    </a>
+    <a href="javascript:;" class="close_me" (click)="closeMenu()" *ngIf="showCloseIcon">
+        <img src="assets/img/close.png" class="img-fluid" alt="">
+    </a>
+</div>

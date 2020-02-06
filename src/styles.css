@@ -49,7 +49,7 @@ header{
 	top:0;
 	left:0;
 	height:64px;
-	z-index: 99;
+	z-index: 9;
 	padding:10px;
 	background: #fece31;
 }
@@ -103,27 +103,37 @@ header{
 .logo_main{
 	width: 91px;
     margin: auto;
-    margin-top: 72px;
+	margin-top: 70px;
     margin-bottom: 25px;
 }
 
+.static_log{
+	margin-top: 16px;
+}
+
 .logo_home{
-	/* width:120px; */
+	width:105px;
 	margin-top: 62px;
+}
+
+.static_log{
+	margin-top: 16px;
 }
 
 .logo_right{
 	width: 241px;
     position: fixed;
     left: 20px;
-    top: 20px;
+	top: 20px;
+	z-index: 991;
 }
 
 .menu_icon{
 	width: 40px;
     position: fixed;
     right: 20px;
-    top: 25px;	
+	top: 25px;	
+	z-index: 991;
 }
 
 .menu_cover{
@@ -140,14 +150,14 @@ header{
 
 .close_me{
 	position: absolute;
-    top: -10px;
+    top: -19px;
     color: #000;
     right: -5px;
     font-size: 25px;
-    display: none;
+    /* display: none; */
     width: 50px;
     height: 50px;
-    z-index: 0;
+    z-index: 3;
 }
 
 .menu_copyr{
@@ -183,8 +193,8 @@ header{
 
 
 .menu_cover ul li a{
-	height: 10vh;
-    line-height: 10vh;
+	height: 60px;
+    line-height: 60px;
 	width: 100%;
 	display: block;
 	color: #fff;
@@ -617,6 +627,7 @@ div.form-control{
 .timer_patch .time_block{
 	color:#1068b2;
 	display: inline-block;
+	height: 35px;
 }
 
 
@@ -627,12 +638,32 @@ div.form-control{
 	font-size: 19px;
 	padding:30px 0 0px; 
 	margin-bottom: 0;
+	text-align:center;
+}
+
+.time_block h1 span:nth-child(2){
+	font-size:10px;
 }
 
 .timer_txt h3{
 	color:#1068b2;
 	font-size:25px;
 }
+.leader_board_cov{
+	min-height: calc(100vh - 179px);
+}
+
+.test_Timer_class span:nth-child(odd){
+	font-size: 40px;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.test_Timer_class span:nth-child(even){
+	font-size: 10px;
+	text-transform: uppercase;
+}
+
 
 .leader_board_cov h3{
 	font-size:16px;
@@ -678,8 +709,8 @@ div.form-control{
 }
 
 .leader_scroll{
-	height: calc(100vh - 273px);
-	overflow-y: scroll;
+	/* height: calc(100vh - 273px);
+	overflow-y: scroll; */
 }
 
 .in_out_time{
