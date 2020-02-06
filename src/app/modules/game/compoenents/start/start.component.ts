@@ -9,6 +9,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { PresencessService } from 'src/app/shared/services/presencess.service';
 import { map } from 'rxjs/operators';
 import * as NoSleep from 'nosleep.js';
+declare var getPermission: any;
 
 @Component({
   selector: 'app-start',
@@ -74,8 +75,7 @@ export class StartComponent implements OnInit {
 
           this.getGroup();
 
-          
-
+          getPermission();          
 
           this.presence$.subscribe(pres => {
            

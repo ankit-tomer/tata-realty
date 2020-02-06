@@ -4,6 +4,7 @@ function getPermission() {
             .then(permissionState => {
                 if (permissionState === 'granted') {
                     window.addEventListener('deviceorientation', (e) => {
+                        console.log(e.alpha + ':' + e.beta +':'+ e.gamma);
                         // document.getElementById("x").innerHTML = Math.round(e.alpha);
                         // document.getElementById("y").innerHTML = Math.round(e.beta);
                         // document.getElementById("z").innerHTML = Math.round(e.gamma);
@@ -13,6 +14,7 @@ function getPermission() {
             .catch(console.error);
     } else {
         window.addEventListener('deviceorientation', (e) => {
+            console.log(e.alpha + ':' + e.beta +':'+ e.gamma);
             // document.getElementById("x").innerHTML = Math.round(e.alpha);
             // document.getElementById("y").innerHTML = Math.round(e.beta);
             // document.getElementById("z").innerHTML = Math.round(e.gamma);
@@ -21,5 +23,5 @@ function getPermission() {
 }
 
 $(function() {
-    alert('Hello, custom js');
+    //alert('Hello, custom js');
 });
