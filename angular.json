@@ -34,7 +34,9 @@
               "node_modules/jquery/dist/jquery.js",
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
-              "node_modules/slick-carousel/slick/slick.min.js"
+              "node_modules/slick-carousel/slick/slick.min.js",
+              "node_modules/nosleep.js/dist/NoSleep.min.js",
+              "src/assets/js/custom.js"
             ],
             "es5BrowserSupport": true
           },
@@ -101,7 +103,9 @@
               "node_modules/jquery/dist/jquery.js",
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
-              "node_modules/slick-carousel/slick/slick.min.js"
+              "node_modules/slick-carousel/slick/slick.min.js",
+              "node_modules/nosleep.js/dist/NoSleep.min.js",
+              "src/assets/js/custom.js"
             ],
             "assets": [
               "src/favicon.ico",
