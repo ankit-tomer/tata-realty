@@ -274,7 +274,7 @@ header{
 	margin-top: -68px;
 }
 .get_start{
-	background: red;
+	background: #e74a37;
 	color:#fff;
 	border:0;
 	border-radius: 50px;
@@ -285,6 +285,7 @@ header{
 	position: relative;
 	display: inline-block;
 }
+
 
 .of_white_bg{
 	background: rgba(255, 255, 255, 0.52);
@@ -399,8 +400,32 @@ div.form-control{
 
 .leader_scroll ul{
 	color:#fff;
-	padding-left: 10px;
+	padding-left: 50px;
+	font-family: 'DINNextLTPro-Light';
 }
+
+.leader_scroll ul li{
+	list-style: none;
+	position: relative;
+    margin-bottom: 10px;
+}
+
+.leader_scroll ul li::before {
+	content: "\2022";
+    color: #ffcf31;
+    font-weight: bold;
+    display: inline-block;
+    width: 7px;
+    margin-left: -7px;
+    position: absolute;
+    left: -19px;
+    font-size: 20px;
+    margin-top: -4px;
+  }
+
+  .leader_scroll .get_start{
+	  margin-bottom: 40px;
+  }
 
 .already_rigy{
 	color:#333;
@@ -671,7 +696,11 @@ div.form-control{
 
 .leader_board_cov .title{
 	margin-top: 20px;
-	color:#fff;
+    color: #ffcf31;
+	font-size: 25px;
+	text-align: left;
+	font-family: 'DINNextLTPro-Black';
+	letter-spacing: 1px;
 }
 
 .leader_board_cov .leader_blk{
@@ -708,6 +737,50 @@ div.form-control{
 	float:left;
 }
 
+.giftbox1{
+	/* width: 250px; */
+	border: 5px solid rgba(255, 255, 255, 0.38);
+	padding:15px;
+	margin-bottom: 30px;
+}
+
+
+.giftbox1 h1{
+	color: #ffcf31;
+    text-transform: uppercase;
+    font-size: 30px;
+    font-family: 'DINNextLTPro-Black';
+	letter-spacing: .7px;
+	margin-bottom: 0;
+}
+
+.giftbox1 h2{
+	margin-bottom: 0;;
+}
+
+.giftbox1 h3{
+	color: #ffcf31;
+    text-transform: uppercase;
+    font-family: 'DINNextLTPro-Black';
+	letter-spacing: .7px;
+	margin-bottom: 0;;
+	font-size: 14px;
+}
+
+.giftbox2 h1,.abut_txt .giftbox2 h2{
+	color:#fff;
+}
+
+.giftbox2 h1 span{
+	font-size: 15px;
+}
+
+
+.abut_txt .get_start{
+	padding:7px 40px;
+}
+
+
 .leader_scroll{
 	/* height: calc(100vh - 273px);
 	overflow-y: scroll; */
@@ -731,8 +804,17 @@ div.form-control{
 	display: inline-block;
 }
 
+.abut_txt h2{
+	color:#ffcf31;
+    text-transform: uppercase;
+	font-size: 19px;
+	font-family: 'DINNextLTPro-Black';
+	letter-spacing: .7px;
+}
+
 .abut_txt p{
 	color:#fff;
+	font-family: 'DINNextLTPro-Light';
 }
 
 
