@@ -117,20 +117,18 @@ export class PlayComponent implements OnInit {
 
   onStart() {
     
-    getPermission.then(function(result) {
-      console.log(result); // "Stuff worked!"
-    }, function(err) {
-      console.log(err); // Error: "It broke"
-    });
-    
-    this.noSleep.enable();
-    this.gameService.startGame(this.game.key, { status: 'prepared' })
+    this.presence.setOrientation().then(data => {
+      // console.log(data +':'+ this.presence.orientation);
+      // alert(this.presence.orientation.y +':'+ this.presence.orientation.z);
+      this.presence.noSleep.enable();
+      this.gameService.startGame(this.game.key, { status: 'prepared' })
       .then(res => {
         this.router.navigate(['/game/prepare/' + this.game.key + '/' + this.playerId]);
-        console.log('prepared')
+        console.log('prepared');
       }, err => {
         //console.log(err);
       });
+    });
   }
 
 }

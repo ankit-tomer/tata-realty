@@ -7,9 +7,7 @@ import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { User, Group } from 'src/app/interfaces/user';
-declare var getPermission: any;
-import * as NoSleep from 'nosleep.js';
-import { analytics } from 'firebase';
+
 
 @Component({
   selector: 'app-join',
@@ -29,14 +27,11 @@ export class JoinComponent implements OnInit {
   player: Player;
   playerId: string;
 
-  noSleep: NoSleep;
-
-  constructor(private authService: AuthService, private userService: UserService, private gameService: GameService, private router: Router, private route: ActivatedRoute) {
+  constructor(private authService: AuthService, private userService: UserService, private gameService: GameService, private router: Router, private route: ActivatedRoute, private presence: PresencessService) {
     this.game = new Game();
     this.user = new User();
     this.group = new Group();
-    this.player = new Player();
-    this.noSleep = new NoSleep();
+    this.player = new Player();    
   }
 
   ngOnInit() {
@@ -115,22 +110,11 @@ export class JoinComponent implements OnInit {
   }
 
   onJoin() {
-    console.log('clicked');
-    getPermission.then(this.goToGamePlay.bind(this), function(err) {
-      console.log(err); // Error: "It broke"
+    this.presence.setOrientation().then(data => {
+      // console.log(data +':'+ this.presence.orientation);
+      // alert(this.presence.orientation.y +':'+ this.presence.orientation.z);
+      this.presence.noSleep.enable();
+      this.router.navigate(['/game/play/' + this.game.key + '/' + this.playerId]);
     });
-
-    this.noSleep.enable();
-    this.router.navigate(['/game/play/' + this.game.key + '/' + this.playerId]);
   }
-
-  //this.goToGamePlay.bind(this)
-
-  goToGamePlay() {
-    console.log(this);
-    this.noSleep.enable();
-    this.router.navigate(['/game/play/' + this.game.key + '/' + this.playerId]);
-  }
-
-
 }

@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
 
   slides = [
     { img: "assets/img/home_bg_01.png", title: 'Phone Time or Family Time.', description: 'That moment when –‘time-away-from-phone’turns to‘quality-time-with-loved-ones' },
-    { img: "assets/img/home_bg_02.png", title: 'Step up your game!It\'s that simple.Literally.', description: 'Phone chodo Dil jodo step by step' },
+    { img: "assets/img/home_bg_02.png", title: 'Step up your game! It\'s that simple. Literally.', description: 'Phone chhodo Dil jodo step by step.' },
     { img: "assets/img/home_bg_03.png", title: 'Put your phone down. Connect with loved ones.', description: 'Start up a card game. Dig into a banter. Enjoy some unplugged moments.' },
   ];
   slideConfig = {

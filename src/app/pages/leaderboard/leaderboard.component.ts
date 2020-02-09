@@ -32,7 +32,9 @@ export class LeaderboardComponent implements OnInit {
         )
       )
     ).subscribe(groups => {
-      this.groups = groups.reverse();
+      console.log(groups);
+      this.groups = groups;
+      console.log(this.groups);
     });
   }
 
