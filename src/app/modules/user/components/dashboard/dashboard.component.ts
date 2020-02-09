@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
     if (!this.memberExists(this.member.phone)) {
       this.userService.createMember(this.member)
         .then(res => {
-          this.smsService.sendSms({ to: this.member.phone, message: environment.baseUrl+'/sign-up/by-invite/'+res.key })
+          this.smsService.sendSms({ to: this.member.phone, message: this.user.fullName+' has invited you to join Phone Chhodo, Dil Jodo contest. Visit the following link to join. '+environment.baseUrl+'/sign-up/by-invite/'+res.key })
             .subscribe(
               (res) => {
                 this.toastrService.success('Invitation sent successfully.', 'Invite');
@@ -188,7 +188,7 @@ export class DashboardComponent implements OnInit {
                   this.presence.setPresence('online');
                 }
                 else {
-                  receipant.message = environment.baseUrl+'/game/join/' + player.gameId + '/' + res2.key;
+                  receipant.message = this.user.fullName+' has invited you to play Phone Chhodo, Dil Jodo contest. Visit the following link to play. '+environment.baseUrl+'/game/join/' + player.gameId + '/' + res2.key;
                   //console.log(receipant);
                   //send invite to join the game
                   this.smsService.sendSms(receipant)
