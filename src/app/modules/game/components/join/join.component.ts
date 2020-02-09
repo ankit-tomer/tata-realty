@@ -110,12 +110,12 @@ export class JoinComponent implements OnInit {
   }
 
   onJoin() {
+    this.presence.noSleep.enable();
     this.presence.playerId = this.playerId;
     this.presence.setPresence('online');
     this.presence.setOrientation().then(data => {
       // console.log(data +':'+ this.presence.orientation);
       // alert(this.presence.orientation.y +':'+ this.presence.orientation.z);
-      this.presence.noSleep.enable();
       this.router.navigate(['/game/play/' + this.game.key + '/' + this.playerId]);
     });
   }

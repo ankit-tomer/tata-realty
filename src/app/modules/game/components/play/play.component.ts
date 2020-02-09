@@ -117,8 +117,8 @@ export class PlayComponent implements OnInit {
   }
 
   onStart() {
+    this.presence.noSleep.enable();
     this.presence.setOrientation().then(data => {
-      this.presence.noSleep.enable();
       this.gameService.startGame(this.game.key, { status: 'prepared' })
       .then(res => {
         this.router.navigate(['/game/prepare/' + this.game.key + '/' + this.playerId]);
