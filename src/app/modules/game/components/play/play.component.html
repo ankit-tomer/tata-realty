@@ -63,11 +63,15 @@
                 </div>
                 <div class="form-group col-12" *ngFor="let player of players">
                     <div class="row" *ngIf="isAdmin && !player.isAdmin">
+                        Members can join the game via SMS OR Scan the following QRCODE with your phone.
+                    </div>
+                </div>
+                <div class="form-group col-12" *ngFor="let player of players">
+                    <div class="row" *ngIf="isAdmin && !player.isAdmin">
                         <div class="col-12 padd_r0 text-left">
                             {{ player.name }} <br />
                         </div>
                         <div class="col-12 padd_r0 text-left">
-                            <small>Members can join the game via SMS OR Scan the following QRCODE with your phone.</small>
                             <qrcode [qrdata]="player.gameUrl" [width]="256" [errorCorrectionLevel]="'M'"
                                 [elementType]="'url'"></qrcode>
                         </div>
