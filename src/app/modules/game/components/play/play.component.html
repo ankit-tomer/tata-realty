@@ -61,9 +61,9 @@
                     </div>
                     <!-- <p>{{ presence.orientation.y }} {{ presence.orientation.z }}</p> -->
                 </div>
-                <div class="form-group col-12" *ngFor="let player of players">
+                <div class="form-group col-12">
                     <div class="row" *ngIf="isAdmin && !player.isAdmin">
-                        Members can join the game via SMS OR Scan the following QRCODE with your phone.
+                        <h5>Members can join the game via SMS OR Scan the following QRCODE with your phone.</h5>
                     </div>
                 </div>
                 <div class="form-group col-12" *ngFor="let player of players">
