@@ -116,10 +116,7 @@ export class PlayComponent implements OnInit {
   }
 
   onStart() {
-    
     this.presence.setOrientation().then(data => {
-      // console.log(data +':'+ this.presence.orientation);
-      // alert(this.presence.orientation.y +':'+ this.presence.orientation.z);
       this.presence.noSleep.enable();
       this.gameService.startGame(this.game.key, { status: 'prepared' })
       .then(res => {

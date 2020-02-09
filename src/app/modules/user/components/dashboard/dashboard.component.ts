@@ -38,6 +38,10 @@ export class DashboardComponent implements OnInit {
     // console.log(this.user);
     // console.log(this.group);
     this.getGroups();
+
+    this.authService.user.subscribe(user=> {
+      console.log(user);
+    })
   }
 
   onSubmit() {

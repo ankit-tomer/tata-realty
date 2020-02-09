@@ -13,7 +13,7 @@ export class PresencessService {
 
   playerId: string;
   orientation: any = { y: 0, z: 0, status: 'success' };
-
+  status: string;
   noSleep: NoSleep;
 
   constructor(private angularFireAuth: AngularFireAuth, private db: AngularFireDatabase) {
@@ -38,6 +38,7 @@ export class PresencessService {
     const user = await this.getUser();
     //if (user) {
     if (this.playerId && this.playerId != '') {
+      this.status = status;
       //return this.db.object(`status/${user.uid}`).update({ status, timestamp: this.timestamp });
       return this.db.object(`players/` + this.playerId).update({ status, timestamp: this.timestamp });
     }
@@ -98,6 +99,12 @@ export class PresencessService {
     };
   }
 
+  unsetOrievntation() {
+    window.removeEventListener('deviceorientation', (e) => {
+      this.orientation = { y: 0, z: 0, status: 'success' };
+    });
+  }
+
   setOrientation() {
     return new Promise<any>((resolve, reject) => {
       if (typeof (DeviceOrientationEvent as any).requestPermission === 'function') {
@@ -113,7 +120,9 @@ export class PresencessService {
                   this.setPresence('moved');
                 }
                 else {
-                  this.setPresence('online');
+                  if(this.status != 'online') {
+                    this.setPresence('online');
+                  }
                 }
 
                 resolve('success');
