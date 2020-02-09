@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -23,10 +24,12 @@ export class HomeComponent implements OnInit {
     //autoplaySpeed: 2000,  
   };
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit() {
-    
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/user']);
+    }
   }
 
   onGetStarted() {

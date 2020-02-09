@@ -11,22 +11,23 @@
 <app-menu></app-menu>
 
 <div class="wrapper regi_bg">
-    
+
     <app-header [centerLogo]="false"></app-header>
 
     <div class="container">
         <div class="logo_main text-center">
             <a routerLink="/">
 
-              <img src="assets/img/PhoneChhodoDilJodo.svg" class="img-fluid" alt="">
+                <img src="assets/img/PhoneChhodoDilJodo.svg" class="img-fluid" alt="">
             </a>
-          </div>
+        </div>
         <div class="main row">
-            <app-my-score [group]="group" [user]="user" class="family_patch regi_fami_patch col-10 offset-1"></app-my-score>
+            <app-my-score [group]="group" [user]="user" class="family_patch regi_fami_patch col-10 offset-1">
+            </app-my-score>
             <div class="col-10 offset-1">
                 <div class="form-group col-12" *ngFor="let player of players">
                     <div class="name_prefilled form-control">{{ player.name }}</div>
-                    
+
                     <span class="remark" [ngClass]="{
                 'rem_success':  player.status  === 'online',
                 'reg_admin': player.status  === 'away',
@@ -36,13 +37,6 @@
                     </span>
 
                     <span class="remark rem_pending" *ngIf="!player.status">Pending</span>
-                </div>
-                <div class="form-group col-12" *ngFor="let player of players">
-                    <div class="row" *ngIf="isAdmin && !player.isAdmin">
-                        <div class="col-12 padd_r0 text-left">
-                            {{ player.name }} <br/>https://upcomingprojects.in/game/join/{{ game.key }}/{{ player.key }}
-                        </div>
-                    </div>
                 </div>
                 <div class="form-group col-12">
                     <div class="row" *ngIf="canBeStarted && isAdmin">
@@ -66,6 +60,17 @@
                         <p>&nbsp;</p>
                     </div>
                     <!-- <p>{{ presence.orientation.y }} {{ presence.orientation.z }}</p> -->
+                </div>
+                <div class="form-group col-12" *ngFor="let player of players">
+                    <div class="row" *ngIf="isAdmin && !player.isAdmin">
+                        <div class="col-12 padd_r0 text-left">
+                            {{ player.name }} <br />
+                        </div>
+                        <div class="col-12 padd_r0 text-left">
+                            <qrcode [qrdata]="player.gameUrl" [width]="256" [errorCorrectionLevel]="'M'"
+                                [elementType]="'url'"></qrcode>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

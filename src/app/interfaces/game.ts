@@ -16,4 +16,5 @@ export class Player {
     isAdmin: boolean;
     status: string;
     timestamp: string;
+    gameUrl?: string|null;
 }

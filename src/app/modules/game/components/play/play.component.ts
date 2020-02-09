@@ -99,6 +99,7 @@ export class PlayComponent implements OnInit {
       let count: number = 0;
 
       for (let player of players) {
+        player.gameUrl = 'https://upcomingprojects.in/game/join/'+player.gameId+'/'+player.key;
         if (player.status == 'online') {
           count++;
         }

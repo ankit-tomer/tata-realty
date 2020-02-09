@@ -27,24 +27,7 @@ import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component'
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { RootComponent } from './shared/components/root/root.component';
 import { SharedModule } from './shared/shared.module';
-
-// const firebaseUiAuthConfig: firebaseui.auth.Config = {
-//   signInFlow: 'popup',
-//   signInOptions: [
-//     {
-//       provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-//       defaultCountry: 'IN',
-//       recaptchaParameters: {
-//         type: 'image', // 'audio'
-//         size: 'invisible', // 'invisible' or 'compact'
-//         badge: 'bottomright' //' bottomright' or 'inline' applies to invisible.
-//       }
-//     }
-//   ],
-//   tosUrl: '/tos',
-//   privacyPolicyUrl: '/privacy-policy',
-//   credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
-// };
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -74,7 +57,8 @@ import { SharedModule } from './shared/shared.module';
     FormsModule,
     PipeModule,
     SlickCarouselModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -110,6 +110,8 @@ export class JoinComponent implements OnInit {
   }
 
   onJoin() {
+    this.presence.playerId = this.playerId;
+    this.presence.setPresence('online');
     this.presence.setOrientation().then(data => {
       // console.log(data +':'+ this.presence.orientation);
       // alert(this.presence.orientation.y +':'+ this.presence.orientation.z);

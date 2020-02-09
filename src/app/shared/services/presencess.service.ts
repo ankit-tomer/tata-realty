@@ -11,10 +11,11 @@ import * as NoSleep from 'nosleep.js';
 })
 export class PresencessService {
 
-  playerId: string;
+  playerId: string = '';
   orientation: any = { y: 0, z: 0, status: 'success' };
   status: string;
   noSleep: NoSleep;
+  gameStarted: boolean = false;
 
   constructor(private angularFireAuth: AngularFireAuth, private db: AngularFireDatabase) {
     //console.log('let there be presence');
@@ -35,7 +36,7 @@ export class PresencessService {
 
   async setPresence(status: string) {
     //console.log(this.playerId);
-    const user = await this.getUser();
+    //const user = await this.getUser();
     //if (user) {
     if (this.playerId && this.playerId != '') {
       this.status = status;
@@ -116,12 +117,14 @@ export class PresencessService {
                 this.orientation.z = Math.round(e.gamma);
                 this.orientation.status = 'success';
 
-                if (this.orientation.y > 10 || this.orientation.y < -10 || this.orientation.z > 10 || this.orientation.z < -10) {
-                  this.setPresence('moved');
-                }
-                else {
-                  if(this.status != 'online') {
-                    this.setPresence('online');
+                if (this.gameStarted) {
+                  if (this.orientation.y > 10 || this.orientation.y < -10 || this.orientation.z > 10 || this.orientation.z < -10) {
+                    this.setPresence('moved');
+                  }
+                  else {
+                    if (this.status != 'online') {
+                      this.setPresence('online');
+                    }
                   }
                 }
 
@@ -139,13 +142,14 @@ export class PresencessService {
           this.orientation.z = Math.round(e.gamma);
           this.orientation.status = 'success';
 
-          if (this.orientation.y > 10 || this.orientation.y < -10 || this.orientation.z > 10 || this.orientation.z < -10) {
-            this.setPresence('moved');
+          if (this.gameStarted) {
+            if (this.orientation.y > 10 || this.orientation.y < -10 || this.orientation.z > 10 || this.orientation.z < -10) {
+              this.setPresence('moved');
+            }
+            else {
+              this.setPresence('online');
+            }
           }
-          else {
-            this.setPresence('online');
-          }
-
           resolve('success');
         });
       }

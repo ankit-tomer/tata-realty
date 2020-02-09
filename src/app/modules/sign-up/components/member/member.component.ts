@@ -20,6 +20,8 @@ export class MemberComponent implements OnInit {
   windowRef: any;
   verificationCode: string;
 
+  returnUrl: string;
+
   constructor(private authService: AuthService, private userService: UserService, private router: Router, private route: ActivatedRoute, private windowService: WindowService, public toastrService: ToastrService) {
     this.user = new User();
   }
@@ -28,6 +30,8 @@ export class MemberComponent implements OnInit {
     this.windowRef = this.windowService.windowRef
     this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container')
     this.windowRef.recaptchaVerifier.render()
+
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/user';
 
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/user']);
@@ -80,7 +84,8 @@ export class MemberComponent implements OnInit {
           userInfo.uid = this.user.uid;
           //console.log(userInfo);
           this.userService.setUser(userInfo);
-          this.router.navigate(['/user']);
+          //this.router.navigate(['/user']);
+          this.router.navigateByUrl(this.returnUrl);
         });
       })
       .catch((err) => {

@@ -63,6 +63,7 @@ export class StartComponent implements OnInit, OnDestroy {
         });
 
         this.presence.playerId = this.playerId;
+        this.presence.gameStarted = true;
         this.presence$ = this.presence.getPresence(this.playerId);
 
         let cdate = new Date();

@@ -8,6 +8,7 @@ import { PresencessService } from 'src/app/shared/services/presencess.service';
 import { GameService } from 'src/app/shared/services/game.service';
 import { Router } from '@angular/router';
 import { Game, Player } from 'src/app/interfaces/game';
+import { SmsService } from 'src/app/shared/services/sms.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,7 +28,7 @@ export class DashboardComponent implements OnInit {
   gameId: string;
   adminPlayerId: string;
 
-  constructor(private authService: AuthService, private userService: UserService, public toastrService: ToastrService, private gameService: GameService, private router: Router, private presence: PresencessService) {
+  constructor(private authService: AuthService, private userService: UserService, public toastrService: ToastrService, private gameService: GameService, private router: Router, private presence: PresencessService, private smsService: SmsService) {
     this.member = new GroupMember();
     this.group = new Group();
   }
@@ -38,10 +39,6 @@ export class DashboardComponent implements OnInit {
     // console.log(this.user);
     // console.log(this.group);
     this.getGroups();
-
-    this.authService.user.subscribe(user=> {
-      console.log(user);
-    })
   }
 
   onSubmit() {
@@ -51,8 +48,16 @@ export class DashboardComponent implements OnInit {
     if (!this.memberExists(this.member.phone)) {
       this.userService.createMember(this.member)
         .then(res => {
-          this.toastrService.success('Invitation sent successfully.', 'Invite');
-          this.member = new GroupMember();
+          this.smsService.sendSms({ to: this.member.phone, message: 'https://upcomingprojects.in/sign-up/by-invite/' + res.key })
+            .subscribe(
+              (res) => {
+                this.toastrService.success('Invitation sent successfully.', 'Invite');
+                this.member = new GroupMember();
+              },
+              (err) => {
+                this.toastrService.error(err, 'Invite');
+              }
+            );
 
           this.inviteUrl = 'https://upcomingprojects.in/sign-up/by-invite/' + res.key;
           //console.log(res);
@@ -171,15 +176,32 @@ export class DashboardComponent implements OnInit {
             player.isAdmin = member.isAdmin ? true : false;
             player.name = member.name;
             player.gameId = res.key;
+            let receipant: any = { to: member.phone, message: '' };
 
             this.gameService.createPlayer(player)
               .then(res2 => {
+
                 if (player.isAdmin) {
                   this.adminPlayerId = res2.key;
                   this.presence.playerId = res2.key;
                   this.presence.setPresence('online');
                 }
-                //send invite to join the game
+                else {
+                  receipant.message = 'https://upcomingprojects.in/game/join/' + player.gameId + '/' + res2.key;
+                  //console.log(receipant);
+                  //send invite to join the game
+                  this.smsService.sendSms(receipant)
+                    .subscribe(
+                      (res3) => {
+                        receipant = { to: '', message: '' }
+                        //console.log(res3);
+                      },
+                      (err) => {
+                      }
+                    );
+                }
+
+
               }, err => {
                 //console.log(err);
               });

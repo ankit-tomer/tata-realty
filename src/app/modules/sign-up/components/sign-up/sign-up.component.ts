@@ -30,6 +30,8 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit() {
+    // console.log(this.authService.user);
+    // console.log(this.authService.isLoggedIn());
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/user']);
     }

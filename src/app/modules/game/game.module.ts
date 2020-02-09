@@ -12,6 +12,8 @@ import { CountdownModule } from 'ngx-countdown';
 import { NgxTimerModule } from 'ngx-timer';
 import { JoinComponent } from './components/join/join.component';
 
+import { QRCodeModule } from 'angularx-qrcode';
+
 
 @NgModule({
   declarations: [PlayComponent, PrepareComponent, StartComponent, OverComponent, JoinComponent],
@@ -20,7 +22,8 @@ import { JoinComponent } from './components/join/join.component';
     GameRoutingModule,
     SharedModule,
     CountdownModule,
-    NgxTimerModule
+    NgxTimerModule,
+    QRCodeModule
   ]
 })
 export class GameModule { }
