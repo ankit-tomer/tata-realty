@@ -9,6 +9,7 @@ import { GameService } from 'src/app/shared/services/game.service';
 import { Router } from '@angular/router';
 import { Game, Player } from 'src/app/interfaces/game';
 import { SmsService } from 'src/app/shared/services/sms.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -48,7 +49,7 @@ export class DashboardComponent implements OnInit {
     if (!this.memberExists(this.member.phone)) {
       this.userService.createMember(this.member)
         .then(res => {
-          this.smsService.sendSms({ to: this.member.phone, message: 'https://upcomingprojects.in/sign-up/by-invite/' + res.key })
+          this.smsService.sendSms({ to: this.member.phone, message: environment.baseUrl+'/sign-up/by-invite/'+res.key })
             .subscribe(
               (res) => {
                 this.toastrService.success('Invitation sent successfully.', 'Invite');
@@ -59,7 +60,7 @@ export class DashboardComponent implements OnInit {
               }
             );
 
-          this.inviteUrl = 'https://upcomingprojects.in/sign-up/by-invite/' + res.key;
+          this.inviteUrl = environment.baseUrl+'/sign-up/by-invite/' + res.key;
           //console.log(res);
 
         }, err => {
@@ -187,7 +188,7 @@ export class DashboardComponent implements OnInit {
                   this.presence.setPresence('online');
                 }
                 else {
-                  receipant.message = 'https://upcomingprojects.in/game/join/' + player.gameId + '/' + res2.key;
+                  receipant.message = environment.baseUrl+'/game/join/' + player.gameId + '/' + res2.key;
                   //console.log(receipant);
                   //send invite to join the game
                   this.smsService.sendSms(receipant)

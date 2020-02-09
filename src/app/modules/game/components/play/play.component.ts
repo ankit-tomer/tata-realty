@@ -9,6 +9,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { User, Group } from 'src/app/interfaces/user';
 declare var getPermission: any;
 import * as NoSleep from 'nosleep.js';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-play',
@@ -99,7 +100,7 @@ export class PlayComponent implements OnInit {
       let count: number = 0;
 
       for (let player of players) {
-        player.gameUrl = 'https://upcomingprojects.in/game/join/'+player.gameId+'/'+player.key;
+        player.gameUrl = environment.baseUrl+'/game/join/'+player.gameId+'/'+player.key;
         if (player.status == 'online') {
           count++;
         }
