@@ -87,7 +87,7 @@
       <div class="col-10 offset-1">
         <form class="row regist_form" (ngSubmit)="onVerify()" ngNativeValidate>
           <div class="form-group col-12">
-            <input type="text" class="form-control" id="verificationCode" placeholder="Enter OTP" name="verificationCode"
+            <input type="number" class="form-control" id="verificationCode" placeholder="Enter OTP" name="verificationCode"
         required [(ngModel)]="verificationCode">
           </div>
           <div class="form-group col-12">
