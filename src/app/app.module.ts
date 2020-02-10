@@ -28,6 +28,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { RootComponent } from './shared/components/root/root.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { NotSupportedComponent } from './pages/not-supported/not-supported.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { HttpClientModule } from '@angular/common/http';
     AboutComponent,
     HowToPlayComponent,
     LeaderboardComponent,
-    RootComponent
+    RootComponent,
+    NotSupportedComponent
   ],
   imports: [
     BrowserModule,

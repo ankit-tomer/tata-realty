@@ -11,6 +11,7 @@ import { TermsComponent } from './pages/terms/terms.component';
 import { WinnersComponent } from './pages/winners/winners.component';
 import { HowToPlayComponent } from './pages/how-to-play/how-to-play.component';
 import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component';
+import { NotSupportedComponent } from './pages/not-supported/not-supported.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
         path: '',
         component: HomeComponent,
         pathMatch: 'full'
+      },
+      {
+        path: 'not-supported',
+        component: NotSupportedComponent,
       },
       {
         path: 'about',
