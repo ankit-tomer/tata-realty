@@ -20,22 +20,30 @@ body{
   color: #9897A0;
   font-size: 14px; 
 }
+
+.opps_page{
+  color:#fff;
+}
+
+.opps_page h1{
+  font-size: 30vw;
+  padding-top:100px;
+}
 </style>
 <div class="container">
   <div class="row text-center">
-    <div class="col-lg-6 offset-lg-3 col-sm-6 offset-sm-3 col-12 p-3 error-main">
-      <div class="row">
-        <div class="col-lg-8 col-12 col-sm-10 offset-lg-2 offset-sm-1">
-          <h2 class="mega-title">404</h2> 
-          <h2><strong>It looks like you're lost.</strong></h2> 
-          <h2 class="sep-bottom">The page you're looking for isn't here.</h2> 
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-8 col-12 col-sm-10 offset-lg-2 offset-sm-1">
-          <a routerLink="/" class="btn btn-primary btn-lg">Go back home</a>
-        </div>
-      </div>
+    <div class="col-12 opps_page">
+      <h1>
+        404 
+      </h1>
+      <h2>Opps,<br/> This page not found!</h2>
+      
+      <a routerLink="/">
+        <button class="get_start">
+          Go back home
+        </button>
+      </a>
+      
     </div>
   </div>
 </div>
