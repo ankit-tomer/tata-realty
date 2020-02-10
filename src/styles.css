@@ -362,7 +362,21 @@ header{
 	font-family: 'FontAwesome';
 	position: absolute;
 	left:20px;
+	z-index: 3;
 }
+
+.radio-toolbar input[type="radio"] + label::after{
+	content: '';
+    width: 20px;
+    height: 20px;
+	border: 1px solid;
+    position: absolute;
+    left: 18px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
 
 
 /*register radio css*/
@@ -379,6 +393,17 @@ header{
 	padding-left: 20px;
 	padding-top: 8px;
 }
+
+.mobile_num_css::before{
+	content: "+91";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 20px;
+	line-height: 40px;
+	color:#333;
+} 
 
 
 div.form-control{
@@ -425,6 +450,22 @@ div.form-control{
 
   .leader_scroll .get_start{
 	  margin-bottom: 40px;
+  }
+
+  .win_options .tab_opt{
+		border: 4px solid rgba(255, 255, 255, 0.6);
+	  font-family: 'DINNextLTPro-Black';
+	  font-size: 20px;
+	  height:45px;
+	  line-height: 40px;
+	  width:50%;
+	  float:left;
+	  /* padding:10px 20px; */
+	  text-transform: uppercase;
+	  letter-spacing: .8px;
+	  text-align: center;
+	  color: #ffcf31;
+	  font-family: 'DINNextLTPro-Black';
   }
 
 .already_rigy{
