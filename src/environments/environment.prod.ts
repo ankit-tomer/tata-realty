@@ -1,4 +1,6 @@
 export const environment = {
+  apiUrl: '/api',
+  baseUrl: 'https://phonechhododiljodo.tatarealty.in',
   production: true,
   firebase: {
     apiKey: "AIzaSyAnOi89mP1OaQn6mzlBQ5GQSpqupB-6mSA",

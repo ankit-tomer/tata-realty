@@ -27,6 +27,9 @@ export class OverComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    //window.location.reload();
+
     this.user = this.userService.getUserInfo();
 
     this.route.paramMap.subscribe(params => {

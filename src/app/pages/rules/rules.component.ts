@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Group, User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/shared/services/user.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-rules',
@@ -12,7 +13,7 @@ export class RulesComponent implements OnInit {
   group: Group;
   user: User;
 
-  constructor(private userService: UserService) {
+  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {
     this.group = new Group();
   }
 
@@ -45,6 +46,10 @@ export class RulesComponent implements OnInit {
       return "rd";
     }
     return "th";
+  }
+
+  onGetStarted() {
+    this.router.navigate(['/sign-up']);
   }
 
 }

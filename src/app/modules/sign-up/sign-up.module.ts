@@ -11,23 +11,6 @@ import { ByInviteComponent } from './components/by-invite/by-invite.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MemberComponent } from './components/member/member.component';
 
-// const firebaseUiAuthConfig: firebaseui.auth.Config = {
-//   signInFlow: 'popup',
-//   signInOptions: [
-//     {
-//       provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-//       defaultCountry: 'IN',
-//       recaptchaParameters: {
-//         type: 'image', // 'audio'
-//         size: 'invisible', // 'invisible' or 'compact'
-//         badge: 'bottomright' //' bottomright' or 'inline' applies to invisible.
-//       }
-//     }
-//   ],
-//   tosUrl: '/tos',
-//   privacyPolicyUrl: '/privacy-policy',
-//   credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
-// };
 
 @NgModule({
   declarations: [SignUpComponent, ByInviteComponent, MemberComponent],

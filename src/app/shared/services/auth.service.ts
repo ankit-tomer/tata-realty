@@ -34,6 +34,7 @@ export class AuthService {
 
   isLoggedIn() {
     if(localStorage.getItem('user')){
+    //if(this.user) {
       return true;
     }
     else{

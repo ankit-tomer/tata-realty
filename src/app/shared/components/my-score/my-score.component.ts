@@ -51,7 +51,7 @@ export class MyScoreComponent implements OnInit {
       this.groups = groups.reverse();
       //console.log(groups);
       let pos: number = 0;
-      for (let group of groups) {
+      for (let group of this.groups) {
         pos++;
         if (group.key == group.key) {
           //console.log(pos);

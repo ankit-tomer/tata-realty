@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { countUpTimerConfigModel, timerTexts, CountupTimerService } from 'ngx-timer';
 import { Game, Player } from 'src/app/interfaces/game';
 import { GameService } from 'src/app/shared/services/game.service';
@@ -8,13 +8,14 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { PresencessService } from 'src/app/shared/services/presencess.service';
 import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-start',
   templateUrl: './start.component.html',
   styleUrls: ['./start.component.css']
 })
-export class StartComponent implements OnInit {
+export class StartComponent implements OnInit, OnDestroy {
 
   timerConfig: countUpTimerConfigModel;
   game: Game;
@@ -26,6 +27,11 @@ export class StartComponent implements OnInit {
   groupScore: number;
   
   presence$;
+
+  playerSub: Subscription;
+  groupSub: Subscription;
+  presenceSub: Subscription;
+  gameSub: Subscription;
 
   constructor(private countupTimerService: CountupTimerService, private authService: AuthService, private userService: UserService, private gameService: GameService, private router: Router, private route: ActivatedRoute, private presence: PresencessService) {
     this.game = new Game();
@@ -52,11 +58,12 @@ export class StartComponent implements OnInit {
       if (params.get('id')) {
         this.playerId = params.get('player');
 
-        this.gameService.getPlayer(this.playerId).valueChanges().subscribe(player => {
+        this.playerSub = this.gameService.getPlayer(this.playerId).valueChanges().subscribe(player => {
           this.player = player;
         });
 
         this.presence.playerId = this.playerId;
+        this.presence.gameStarted = true;
         this.presence$ = this.presence.getPresence(this.playerId);
 
         let cdate = new Date();
@@ -65,17 +72,18 @@ export class StartComponent implements OnInit {
         this.countupTimerService.startTimer(cdate);
         //this.noSleep.enable();
 
-        this.gameService.getGame(params.get('id')).valueChanges().subscribe(game => {
+        this.gameSub = this.gameService.getGame(params.get('id')).valueChanges().subscribe(game => {
           this.game = game;
           this.game.key = params.get('id');
 
           this.getGroup();          
 
-          this.presence$.subscribe(pres => {
+          this.presenceSub = this.presence$.subscribe(pres => {
            
               if (pres.status != 'online' && this.game.status != 'over') {
                 
                 this.countupTimerService.pauseTimer();
+                this.presence.unsetOrievntation();
 
                 let gameScore = {
                   status: 'over',
@@ -145,4 +153,11 @@ export class StartComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(){
+    // prevent memory leak when component destroyed
+    this.presenceSub.unsubscribe();
+    this.playerSub.unsubscribe();
+    this.gameSub.unsubscribe();
+    this.presence.unsetOrievntation();
+  }
 }

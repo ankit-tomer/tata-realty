@@ -9,6 +9,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { User, Group } from 'src/app/interfaces/user';
 declare var getPermission: any;
 import * as NoSleep from 'nosleep.js';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-play',
@@ -99,6 +100,7 @@ export class PlayComponent implements OnInit {
       let count: number = 0;
 
       for (let player of players) {
+        player.gameUrl = environment.baseUrl+'/game/join/'+player.gameId+'/'+player.key;
         if (player.status == 'online') {
           count++;
         }
@@ -116,21 +118,16 @@ export class PlayComponent implements OnInit {
   }
 
   onStart() {
-    
-    getPermission.then(function(result) {
-      console.log(result); // "Stuff worked!"
-    }, function(err) {
-      console.log(err); // Error: "It broke"
-    });
-    
-    this.noSleep.enable();
-    this.gameService.startGame(this.game.key, { status: 'prepared' })
+    this.presence.noSleep.enable();
+    this.presence.setOrientation().then(data => {
+      this.gameService.startGame(this.game.key, { status: 'prepared' })
       .then(res => {
         this.router.navigate(['/game/prepare/' + this.game.key + '/' + this.playerId]);
-        console.log('prepared')
+        console.log('prepared');
       }, err => {
         //console.log(err);
       });
+    });
   }
 
 }
