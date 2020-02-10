@@ -464,8 +464,19 @@ div.form-control{
 	  text-transform: uppercase;
 	  letter-spacing: .8px;
 	  text-align: center;
-	  color: #ffcf31;
+	  color: #ffffff;
 	  font-family: 'DINNextLTPro-Black';
+	  opacity: .6;
+	  text-decoration: none;
+  }
+
+  .win_options .tab_opt.active{
+	color: #ffcf31;
+	opacity: 1;
+  }
+
+  #Daily_tab,#Grand_tab{
+	  padding-top: 25px;
   }
 
 .already_rigy{
@@ -494,6 +505,49 @@ div.form-control{
     width: 85px;
     height: 20px;
     text-align: right;
+}
+
+.join_btn_{
+	width: 150px;
+    right: 20px;
+    top: -7px;
+}
+
+.join_btn_ .verify_btn{
+	padding:4px 20px;
+}
+
+.join_game_txt{
+	font-size: 16px;
+	font-family: 'DINNextLTPro-Black';
+	color:#000;
+	text-transform: uppercase;
+	padding-left: 20px;
+	padding-bottom:40px;
+	padding-top:20px;
+}
+
+.join_game_txt li{
+	list-style: none;
+	text-transform: none;
+	padding-left: 30px;
+	position: relative;
+	font-family: 'DINNextLTPro-Light';
+	font-size: 12px;
+	padding-top: 10px;
+}
+
+.join_game_txt li:before{
+	content:"";
+	position: absolute;
+	top:17px;
+	width:5px;
+	height: 5px;
+	border-radius: 5px;
+	background: #000;
+	bottom:0;
+	left:5px; 
+	
 }
 
 .yu_regi_txt{

@@ -40,15 +40,114 @@
 
                        
                     </div>
-
-                    <div class="win_options col-12">
-                        <a href="javascript:;" class="tab_opt">
-                            Daily
-                        </a>
-                        <a href="javascript:;" class="tab_opt">
-                            Grand
-                        </a>
+                    
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="win_options col-12">
+                                <a href="javascript:;" class="tab_opt dai_opt" (click)="openDaily()">
+                                    Daily
+                                </a>
+                                <a href="javascript:;" class="tab_opt gra_opt active" (click)="openGrand()" >
+                                    Grand
+                                </a>
+                            </div>
+                            <div class="col-12" id="Daily_tab" *ngIf="showGrand">
+                                <div class="leader_scroll">
+                                    <div class="col-12">
+                                        <div class="leader_blk color1">
+                                            <div class="img_cov">
+                                                <img src="./assets/img/male_profile.jpg" class="img-fluid" alt="">
+                                            </div>
+                                            <div class="txt_cov">
+                                                <span>group name</span> <br />
+                                                <span>group.totalScore</span>
+                                            </div>
+                                            <div class="rank">
+                                                <span class="pull-right">1
+                                                    <sup> 3 </sup></span>
+                                            </div>
+                                        </div>
+    
+                                        <div class="leader_blk color1">
+                                            <div class="img_cov">
+                                                <img src="./assets/img/male_profile.jpg" class="img-fluid" alt="">
+                                            </div>
+                                            <div class="txt_cov">
+                                                <span>group name</span> <br />
+                                                <span>group.totalScore</span>
+                                            </div>
+                                            <div class="rank">
+                                                <span class="pull-right">1
+                                                    <sup> 3 </sup></span>
+                                            </div>
+                                        </div>
+    
+                                        <div class="leader_blk color1">
+                                            <div class="img_cov">
+                                                <img src="./assets/img/male_profile.jpg" class="img-fluid" alt="">
+                                            </div>
+                                            <div class="txt_cov">
+                                                <span>group name</span> <br />
+                                                <span>group.totalScore</span>
+                                            </div>
+                                            <div class="rank">
+                                                <span class="pull-right">1
+                                                    <sup> 3 </sup></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12" id="Grand_tab" *ngIf="showDaily" >
+                                <div class="leader_scroll">
+                                    <div class="col-12">
+                                        <div class="leader_blk color1">
+                                            <div class="img_cov">
+                                                <img src="./assets/img/male_profile.jpg" class="img-fluid" alt="">
+                                            </div>
+                                            <div class="txt_cov">
+                                                <span>group name</span> <br />
+                                                <span>group.totalScore</span>
+                                            </div>
+                                            <div class="rank">
+                                                <span class="pull-right">1
+                                                    <sup> 3 </sup></span>
+                                            </div>
+                                        </div>
+    
+                                        <div class="leader_blk color1">
+                                            <div class="img_cov">
+                                                <img src="./assets/img/male_profile.jpg" class="img-fluid" alt="">
+                                            </div>
+                                            <div class="txt_cov">
+                                                <span>group name</span> <br />
+                                                <span>group.totalScore</span>
+                                            </div>
+                                            <div class="rank">
+                                                <span class="pull-right">1
+                                                    <sup> 3 </sup></span>
+                                            </div>
+                                        </div>
+    
+                                        <div class="leader_blk color1">
+                                            <div class="img_cov">
+                                                <img src="./assets/img/male_profile.jpg" class="img-fluid" alt="">
+                                            </div>
+                                            <div class="txt_cov">
+                                                <span>group name</span> <br />
+                                                <span>group.totalScore</span>
+                                            </div>
+                                            <div class="rank">
+                                                <span class="pull-right">1
+                                                    <sup> 3 </sup></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    
                 </div>
 
             </div>

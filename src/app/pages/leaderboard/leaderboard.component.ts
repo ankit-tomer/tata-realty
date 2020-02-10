@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+declare var jQuery: any;
 import { UserService } from 'src/app/shared/services/user.service';
 import { map } from 'rxjs/operators';
 import { Group, User } from 'src/app/interfaces/user';
@@ -13,6 +14,9 @@ export class LeaderboardComponent implements OnInit {
   groups: Group[];
   group: Group;
   user: User;
+
+  showDaily: boolean = true;
+  showGrand: boolean = false;
 
   constructor(private userService: UserService) {
     this.group = new Group();
@@ -58,5 +62,27 @@ export class LeaderboardComponent implements OnInit {
       return "rd";
     }
     return "th";
+  }
+
+  openDaily() {
+    jQuery('#Grand_tab').removeClass('active');
+    jQuery('#Daily_tab').addClass('active');
+    jQuery('.gra_opt').removeClass('active');
+    jQuery('.dai_opt').addClass('active');
+    this.showDaily = false;
+    this.showGrand = true;
+    // jQuery('.menu_icon .burger_ico').hide(function(){
+      
+    //   //console.log('demo');
+    // });
+  }
+
+  openGrand(){
+    jQuery('#Daily_tab').removeClass('active');
+    jQuery('#Grand_tab').addClass('active');
+    jQuery('.dai_opt').removeClass('active');
+    jQuery('.gra_opt').addClass('active');
+    this.showDaily = true;
+    this.showGrand = false;
   }
 }

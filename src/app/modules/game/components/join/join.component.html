@@ -35,7 +35,7 @@
                         {{ player.status }}
                     </span>
 
-                    <span class="remark rem_pending" *ngIf="!player.status && player.uid == user.uid">
+                    <span class="remark rem_pending join_btn_" *ngIf="!player.status && player.uid == user.uid">
                         <button type="button" (click)="onJoin()" class="verify_btn">
                             Join Now <i class="fa fa-caret-right"></i>
                         </button>
@@ -51,6 +51,20 @@
                         <p>&nbsp;</p>
                     </div>
                 </div> -->
+                <ul class="join_game_txt">
+                    Game instructions:
+                    <li>  Keep your mobile on the flat surface and join the game.</li>
+
+                    <li> Wait your admin to start the game</li>
+
+                    <li> If you lift the phone game will end.</li>
+
+                    <li>If you toggle the game browser game will end.</li>
+
+                    <li>If you answer a call game will end.</li>
+
+                    <li>If mobile goes out of battery life game will end.</li>
+                </ul>
             </div>
         </div>
     </div>
