@@ -362,7 +362,21 @@ header{
 	font-family: 'FontAwesome';
 	position: absolute;
 	left:20px;
+	z-index: 3;
 }
+
+.radio-toolbar input[type="radio"] + label::after{
+	content: '';
+    width: 20px;
+    height: 20px;
+	border: 1px solid;
+    position: absolute;
+    left: 18px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
 
 
 /*register radio css*/
@@ -379,6 +393,17 @@ header{
 	padding-left: 20px;
 	padding-top: 8px;
 }
+
+.mobile_num_css::before{
+	content: "+91";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 20px;
+	line-height: 40px;
+	color:#333;
+} 
 
 
 div.form-control{
@@ -427,6 +452,33 @@ div.form-control{
 	  margin-bottom: 40px;
   }
 
+  .win_options .tab_opt{
+		border: 4px solid rgba(255, 255, 255, 0.6);
+	  font-family: 'DINNextLTPro-Black';
+	  font-size: 20px;
+	  height:45px;
+	  line-height: 40px;
+	  width:50%;
+	  float:left;
+	  /* padding:10px 20px; */
+	  text-transform: uppercase;
+	  letter-spacing: .8px;
+	  text-align: center;
+	  color: #ffffff;
+	  font-family: 'DINNextLTPro-Black';
+	  opacity: .6;
+	  text-decoration: none;
+  }
+
+  .win_options .tab_opt.active{
+	color: #ffcf31;
+	opacity: 1;
+  }
+
+  #Daily_tab,#Grand_tab{
+	  padding-top: 25px;
+  }
+
 .already_rigy{
 	color:#333;
 	font-size: 16px;	
@@ -453,6 +505,49 @@ div.form-control{
     width: 85px;
     height: 20px;
     text-align: right;
+}
+
+.join_btn_{
+	width: 150px;
+    right: 20px;
+    top: -7px;
+}
+
+.join_btn_ .verify_btn{
+	padding:4px 20px;
+}
+
+.join_game_txt{
+	font-size: 16px;
+	font-family: 'DINNextLTPro-Black';
+	color:#000;
+	text-transform: uppercase;
+	padding-left: 20px;
+	padding-bottom:40px;
+	padding-top:20px;
+}
+
+.join_game_txt li{
+	list-style: none;
+	text-transform: none;
+	padding-left: 30px;
+	position: relative;
+	font-family: 'DINNextLTPro-Light';
+	font-size: 12px;
+	padding-top: 10px;
+}
+
+.join_game_txt li:before{
+	content:"";
+	position: absolute;
+	top:17px;
+	width:5px;
+	height: 5px;
+	border-radius: 5px;
+	background: #000;
+	bottom:0;
+	left:5px; 
+	
 }
 
 .yu_regi_txt{
