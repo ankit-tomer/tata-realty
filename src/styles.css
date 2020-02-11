@@ -339,9 +339,11 @@ header{
     border-radius: 0;
     width: 50%;
     float: left;
-    margin-bottom: 0;
+	margin-bottom: 0;
+	border-right: 1px solid #face48;
     text-align: center;
-    position: relative;
+	position: relative;
+	font-size: 14px;
 }
 
 .radio-toolbar label:hover {
@@ -369,12 +371,13 @@ header{
 	content: '';
     width: 20px;
     height: 20px;
-	border: 1px solid;
+	/* border: 1px solid; */
     position: absolute;
     left: 18px;
     top: 0;
     bottom: 0;
-    margin: auto;
+	margin: auto;
+	border: 1px solid #cacaca;
 }
 
 
@@ -394,15 +397,25 @@ header{
 	padding-top: 8px;
 }
 
+.regist_form .mobile_num_css input.form-control{
+	padding-left: 50px;
+}
+
 .mobile_num_css::before{
 	content: "+91";
     position: absolute;
     top: 0;
     bottom: 0;
     margin: auto;
-    left: 20px;
+    left: 15px;
 	line-height: 40px;
 	color:#333;
+	background: #f3f1f2;	
+	border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    width: 40px;
+    border: 1px solid #d3d3c2;
+    text-align: center;
 } 
 
 
@@ -450,6 +463,16 @@ div.form-control{
 
   .leader_scroll .get_start{
 	  margin-bottom: 40px;
+  }
+
+  .abut_txt p.anoun_txt{
+	  font-family: 'DINNextLTPro-Black';
+	  font-size: 14px;
+	  color: #ffcf31;
+	  text-transform: uppercase;
+	  letter-spacing: .3px;
+	  text-align: center;
+	  
   }
 
   .win_options .tab_opt{
