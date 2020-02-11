@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
     if (!this.memberExists(this.member.phone)) {
       this.userService.createMember(this.member)
         .then(res => {
-          this.smsService.sendSms({ to: this.member.phone, message: this.user.fullName+' has invited you to join Phone Chhodo, Dil Jodo contest. Visit the following link to join. '+environment.baseUrl+'/sign-up/by-invite/'+res.key })
+          this.smsService.sendSms({ to: this.member.phone, message: this.user.fullName+' wants you to play the Phone Chhodo, Dil Jodo contest. Follow link to register: '+environment.baseUrl+'/sign-up/by-invite/'+res.key+' Hurry, you’re just a few steps away!' })
             .subscribe(
               (res) => {
                 this.toastrService.success('Invitation sent successfully.', 'Invite');
@@ -194,7 +194,7 @@ export class DashboardComponent implements OnInit {
                   this.presence.setPresence('online');
                 }
                 else {
-                  receipant.message = this.user.fullName+' has invited you to play Phone Chhodo, Dil Jodo contest. Visit the following link to play. '+environment.baseUrl+'/game/join/' + player.gameId + '/' + res2.key;
+                  receipant.message = this.user.fullName+' Your friend Ankit is waiting for you to play the Phone Chhodo, Dil Jodo game! Click here to start playing NOW: '+environment.baseUrl+'/game/join/' + player.gameId + '/' + res2.key + ' So start playing and stand a chance to win exciting prizes!';
                   //console.log(receipant);
                   //send invite to join the game
                   this.smsService.sendSms(receipant)

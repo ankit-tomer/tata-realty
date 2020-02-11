@@ -158,6 +158,7 @@ export class StartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    console.log('left page');
     // prevent memory leak when component destroyed
     this.presenceSub.unsubscribe();
     this.playerSub.unsubscribe();
