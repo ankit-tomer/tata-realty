@@ -126,4 +126,12 @@ export class UserService {
   getLeaderboard(): AngularFireList<Group> {
     return this.db.list(this.dbPathGroups, ref => ref.orderByChild('totalScore').limitToLast(10));
   }
+
+  getDailyLeaderboard(createdAt: string): AngularFireList<any> {
+    return this.db.list('groupScores', ref => ref.orderByChild('createdAt').equalTo(createdAt).limitToLast(99999));
+  }
+
+  updateScore(groupId: string, value: any): Promise<void> {
+    return this.db.object(`groupScores/${groupId}`).update(value);
+  }
 }

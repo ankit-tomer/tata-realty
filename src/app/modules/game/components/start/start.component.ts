@@ -25,7 +25,7 @@ export class StartComponent implements OnInit, OnDestroy {
   player: Player;
   playerId: string;
   groupScore: number;
-  
+
   presence$;
 
   playerSub: Subscription;
@@ -76,40 +76,44 @@ export class StartComponent implements OnInit, OnDestroy {
           this.game = game;
           this.game.key = params.get('id');
 
-          this.getGroup();          
+          this.getGroup();
 
           this.presenceSub = this.presence$.subscribe(pres => {
-           
-              if (pres.status != 'online' && this.game.status != 'over') {
-                
-                this.countupTimerService.pauseTimer();
-                this.presence.unsetOrievntation();
 
-                let gameScore = {
-                  status: 'over',
-                  endedById: this.user.uid,
-                  endedByName: this.player.name,
-                  score: this.countupTimerService.timerValue.hours + ':' + this.countupTimerService.timerValue.mins + ':' + this.countupTimerService.timerValue.seconds,
-                  scoreSeconds: this.countupTimerService.totalSeconds
-                }
+            if (pres.status != 'online' && this.game.status != 'over') {
 
-                let totalScore: number = 0;
-                totalScore = this.groupScore + gameScore.scoreSeconds;
-                
-                //console.log(totalScore);
+              this.countupTimerService.pauseTimer();
+              this.presence.unsetOrievntation();
 
-                this.gameService.startGame(this.game.key, gameScore)
-                  .then(res => {
-                    this.userService.updateGroup(this.group.key, { totalScore: totalScore })
-                    .then(res => {
-                      this.countupTimerService.stopTimer();
-                      this.router.navigate(['/game/over/' + this.game.key + '/' + this.playerId]);
-                      return false;
-                    });
-                  }, err => {
-                    //console.log(err);
-                  });
+              let gameScore = {
+                status: 'over',
+                endedById: this.user.uid,
+                endedByName: this.player.name,
+                score: this.countupTimerService.timerValue.hours + ':' + this.countupTimerService.timerValue.mins + ':' + this.countupTimerService.timerValue.seconds,
+                scoreSeconds: this.countupTimerService.totalSeconds
               }
+
+              let totalScore: number = 0;
+              totalScore = this.groupScore + gameScore.scoreSeconds;
+
+              //console.log(totalScore);
+
+              this.gameService.startGame(this.game.key, gameScore)
+                .then(res => {
+                  this.userService.updateGroup(this.group.key, { totalScore: totalScore })
+                    .then(res => {
+                      let createdAt: Date = new Date();
+                      this.userService.updateScore(this.group.key, { name: this.group.name, gender: this.group.gender, createdAt: createdAt.toLocaleDateString(), score: gameScore.scoreSeconds, gameId: this.game.key })
+                        .then(res2 => {
+                          this.countupTimerService.stopTimer();
+                          this.router.navigate(['/game/over/' + this.game.key + '/' + this.playerId]);
+                          return false;
+                        });
+                    });
+                }, err => {
+                  //console.log(err);
+                });
+            }
           });
 
           // if(this.presence$.status != 'online') {
@@ -153,7 +157,7 @@ export class StartComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     // prevent memory leak when component destroyed
     this.presenceSub.unsubscribe();
     this.playerSub.unsubscribe();

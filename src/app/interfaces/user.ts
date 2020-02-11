@@ -4,6 +4,7 @@ export class Group {
     gender: string;
     uid: string;
     totalScore: number;
+    createdAt: Date|null;
 }
 
 export class GroupMember {
@@ -23,4 +24,5 @@ export class User {
     photo: string;
     gender: string;
     uid: string;
+    createdAt: Date|null;
 }

@@ -77,18 +77,20 @@ export class SignUpComponent implements OnInit {
         this.authService.setAccount(result.user);
 
         if (result.additionalUserInfo.isNewUser) {
-
+          let createdAt: Date = new Date();
           this.group.uid = result.user.uid;
           this.group.totalScore = 0;
           this.group.gender = this.user.gender;
+          this.group.createdAt = createdAt;
 
           this.userService.createGroup(this.group)
             .then(res => {
               //console.log(res);
               this.group.key = res.key;
               this.userService.setGroup(this.group);
-
+              
               this.user.uid = result.user.uid;
+              this.user.createdAt = createdAt;
 
               this.userService.createUser(this.user)
                 .then(res2 => {

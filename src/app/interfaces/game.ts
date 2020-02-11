@@ -5,7 +5,8 @@ export class Game {
     score: string;
     scoreSeconds: number;
     endedById: string;
-    endedByName: string; 
+    endedByName: string;
+    createdAt: Date|null;
 }
 
 export class Player {

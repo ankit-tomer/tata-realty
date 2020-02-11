@@ -40,6 +40,9 @@ export class DashboardComponent implements OnInit {
     // console.log(this.user);
     // console.log(this.group);
     this.getGroups();
+
+    // let createdAt: Date = new Date();
+    // console.log(createdAt.toLocaleDateString());
   }
 
   onSubmit() {
@@ -85,9 +88,11 @@ export class DashboardComponent implements OnInit {
   }
 
   onSubmitGroup() {
+    let createdAt: Date = new Date();
     this.group.uid = this.user.uid;
     this.group.gender = this.user.gender;
     this.group.totalScore = 0;
+    this.group.createdAt = createdAt;
     this.userService.createGroup(this.group)
       .then(res => {
         this.group.key = res.key;
@@ -159,10 +164,11 @@ export class DashboardComponent implements OnInit {
   }
 
   onPlay() {
-
+    let createdAt: Date = new Date();
     let game: Game = new Game();
     game.uid = this.user.uid;
     game.status = 'created';
+    game.createdAt = createdAt;
 
     this.gameService.createGame(game)
       .then(res => {
@@ -217,6 +223,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goToGamePlay() {
+    this.toastrService.success('Invitation sent successfully.', 'Play Game');
     this.router.navigate(['/game/play/' + this.gameId + '/' + this.adminPlayerId]);
   }
 

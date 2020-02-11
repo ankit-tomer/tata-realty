@@ -28,108 +28,59 @@
                     <h3 class="text-left title">Leaderboard</h3>
                     <p class="text-left" style="color:#fff;">Where does your group stand?</p>
                 </div>
-                
+
                 <div class="col-12">
                     <div class="row">
                         <div class="win_options col-12">
-                            <a href="javascript:;" class="tab_opt dai_opt" (click)="openDaily()">
+                            <a href="javascript:;" class="tab_opt dai_opt" (click)="openDaily()" [ngClass]="{
+                                'active':  showDaily}">
                                 Daily
                             </a>
-                            <a href="javascript:;" class="tab_opt gra_opt active" (click)="openGrand()" >
+                            <a href="javascript:;" class="tab_opt gra_opt" (click)="openGrand()" [ngClass]="{
+                                'active':  showGrand}">
                                 Grand
                             </a>
                         </div>
-                        <div class="col-12" id="Daily_tab" *ngIf="showGrand">
+                        <div class="col-12" id="Daily_tab" *ngIf="showDaily" [ngClass]="{
+                            'active':  showDaily}">
                             <div class="leader_scroll">
                                 <div class="col-12">
-                                    <div class="leader_blk color1">
+                                    <div class="leader_blk color1" *ngFor="let group of dailyGroups; index as i">
                                         <div class="img_cov">
-                                            <img src="./assets/img/male_profile.jpg" class="img-fluid" alt="">
+                                            <img src="./assets/img/{{ group.gender }}_profile.jpg" class="img-fluid"
+                                                alt="">
                                         </div>
                                         <div class="txt_cov">
-                                            <span>group name</span> <br />
-                                            <span>group totalScore</span>
+                                            <span>{{ group.name }}</span> <br />
+                                            <span>{{ secondsToTime(group.score) }}</span>
                                         </div>
                                         <div class="rank">
-                                            <span class="pull-right">1
-                                                <sup> 3 </sup></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="leader_blk color1">
-                                        <div class="img_cov">
-                                            <img src="./assets/img/male_profile.jpg" class="img-fluid" alt="">
-                                        </div>
-                                        <div class="txt_cov">
-                                            <span>group name</span> <br />
-                                            <span>group totalScore</span>
-                                        </div>
-                                        <div class="rank">
-                                            <span class="pull-right">1
-                                                <sup> 3 </sup></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="leader_blk color1">
-                                        <div class="img_cov">
-                                            <img src="./assets/img/male_profile.jpg" class="img-fluid" alt="">
-                                        </div>
-                                        <div class="txt_cov">
-                                            <span>group name</span> <br />
-                                            <span>group totalScore</span>
-                                        </div>
-                                        <div class="rank">
-                                            <span class="pull-right">1
-                                                <sup> 3 </sup></span>
+                                            <span class="pull-right">{{ (i+1) }}
+                                                <sup> {{ getOrdinalSuffix((i+1)) }} </sup></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12" id="Grand_tab" *ngIf="showDaily" >
+                        <div class="col-12" id="Grand_tab" *ngIf="showGrand" [ngClass]="{
+                            'active':  showGrand}">
                             <div class="leader_scroll">
                                 <div class="col-12">
-                                    <div class="leader_blk color1">
+                                    <div class="leader_blk color1" *ngFor="let group of groups; index as i">
                                         <div class="img_cov">
-                                            <img src="./assets/img/male_profile.jpg" class="img-fluid" alt="">
+                                            <img src="./assets/img/{{ group.gender }}_profile.jpg" class="img-fluid"
+                                                alt="">
                                         </div>
                                         <div class="txt_cov">
-                                            <span>group name</span> <br />
-                                            <span>group totalScore</span>
+                                            <span>{{ group.name }}</span> <br />
+                                            <span>{{ secondsToTime(group.totalScore) }}</span>
                                         </div>
                                         <div class="rank">
-                                            <span class="pull-right">1
-                                                <sup> 3 </sup></span>
+                                            <span class="pull-right">{{ (i+1) }}
+                                                <sup> {{ getOrdinalSuffix((i+1)) }} </sup></span>
                                         </div>
                                     </div>
 
-                                    <div class="leader_blk color1">
-                                        <div class="img_cov">
-                                            <img src="./assets/img/male_profile.jpg" class="img-fluid" alt="">
-                                        </div>
-                                        <div class="txt_cov">
-                                            <span>group name</span> <br />
-                                            <span>group totalScore</span>
-                                        </div>
-                                        <div class="rank">
-                                            <span class="pull-right">1
-                                                <sup> 3 </sup></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="leader_blk color1">
-                                        <div class="img_cov">
-                                            <img src="./assets/img/male_profile.jpg" class="img-fluid" alt="">
-                                        </div>
-                                        <div class="txt_cov">
-                                            <span>group name</span> <br />
-                                            <span>group totalScore</span>
-                                        </div>
-                                        <div class="rank">
-                                            <span class="pull-right">1
-                                                <sup> 3 </sup></span>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

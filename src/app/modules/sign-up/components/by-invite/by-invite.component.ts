@@ -91,9 +91,11 @@ export class ByInviteComponent implements OnInit {
 
         this.authService.setAccount(result.user);
 
+        let createdAt: Date = new Date();
         this.user.fullName = this.groupMember.name;
         this.user.phone = this.groupMember.phone;
         this.user.uid = result.user.uid;
+        this.user.createdAt = createdAt;
 
         if (result.additionalUserInfo.isNewUser) {
 
