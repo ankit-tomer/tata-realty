@@ -194,7 +194,7 @@ export class DashboardComponent implements OnInit {
                   this.presence.setPresence('online');
                 }
                 else {
-                  receipant.message = this.user.fullName+' Your friend Ankit is waiting for you to play the Phone Chhodo, Dil Jodo game! Click here to start playing NOW: '+environment.baseUrl+'/game/join/' + player.gameId + '/' + res2.key + ' So start playing and stand a chance to win exciting prizes!';
+                  receipant.message = 'Your friend '+this.user.fullName+' is waiting for you to play the Phone Chhodo, Dil Jodo game! Click here to start playing NOW: '+environment.baseUrl+'/game/join/' + player.gameId + '/' + res2.key + ' So start playing and stand a chance to win exciting prizes!';
                   //console.log(receipant);
                   //send invite to join the game
                   this.smsService.sendSms(receipant)
