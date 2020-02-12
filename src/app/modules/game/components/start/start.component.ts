@@ -82,6 +82,7 @@ export class StartComponent implements OnInit, OnDestroy {
 
             if (pres.status != 'online' && this.game.status != 'over') {
 
+              this.presence.noSleep.disable();
               this.countupTimerService.pauseTimer();
               this.presence.unsetOrievntation();
 

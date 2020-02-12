@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
         .then(res => {
           // console.log({ to: this.member.phone, message: this.user.fullName + ' wants you to play the Phone Chhodo, Dil Jodo contest. Follow link to register: '+environment.baseUrl+'/sign-up/by-invite/'+res.key+' Hurry, you’re just a few steps away!' });
           // return false;
-          this.smsService.sendSms({ to: this.member.phone, message: this.user.fullName + ' wants you to play the Phone Chhodo, Dil Jodo contest. Follow link to register: '+environment.baseUrl+'/sign-up/by-invite/'+res.key+' Hurry, you\'re just a few steps away!' })
+          this.smsService.sendSms({ to: this.member.phone, message: this.user.fullName + ' wants you to play the Phone Chhodo Dil Jodo contest. Follow link to register: ' + environment.baseUrl + '/sign-up/by-invite/' + res.key + ' Hurry, you\'re just a few steps away!' })
             .subscribe(
               (res) => {
                 //console.log(res);
@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit {
               }
             );
 
-          this.inviteUrl = environment.baseUrl+'/sign-up/by-invite/' + res.key;
+          this.inviteUrl = environment.baseUrl + '/sign-up/by-invite/' + res.key;
           //console.log(res);
 
         }, err => {
@@ -197,7 +197,7 @@ export class DashboardComponent implements OnInit {
                   this.presence.setPresence('online');
                 }
                 else {
-                  receipant.message = this.user.fullName+' is waiting for you to play the Phone Chhodo, Dil Jodo game! Click here to start playing NOW: '+environment.baseUrl+'/game/join/' + player.gameId + '/' + res2.key + ' So start playing and stand a chance to win exciting prizes!';
+                  receipant.message = this.user.fullName + ' is waiting for you to play the Phone Chhodo Dil Jodo game! Click here to start playing NOW: ' + environment.baseUrl + '/game/join/' + player.gameId + '/' + res2.key + ' So start playing and stand a chance to win exciting prizes!';
                   //console.log(receipant);
                   //send invite to join the game
                   this.smsService.sendSms(receipant)
@@ -228,6 +228,19 @@ export class DashboardComponent implements OnInit {
   goToGamePlay() {
     this.toastrService.success('Invitation sent successfully.', 'Play Game');
     this.router.navigate(['/game/play/' + this.gameId + '/' + this.adminPlayerId]);
+  }
+
+  onRemind(member: GroupMember) {
+    this.smsService.sendSms({ to: member.phone, message: this.user.fullName + ' wants you to play the Phone Chhodo Dil Jodo contest. Follow link to register: ' + environment.baseUrl + '/sign-up/by-invite/' + member.key + ' Hurry, you\'re just a few steps away!' })
+      .subscribe(
+        (res) => {
+          console.log(res);
+          this.toastrService.success('Reminder sent successfully.', 'Remind');
+        },
+        (err) => {
+          this.toastrService.error(err, 'Invite');
+        }
+      );
   }
 
 }

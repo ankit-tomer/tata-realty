@@ -47,8 +47,13 @@
             <span class="remark rem_success" *ngIf="!member.isAdmin && member.uid">
               Verified
             </span>
+            <!-- <span class="remark rem_pending join_btn_" *ngIf="!member.isAdmin && !member.uid">
+              <button type="button" (click)="onRemind()" class="verify_btn">
+                Remind <i class="fa fa-caret-right"></i>
+              </button>
+            </span> -->
             <span class="remark rem_pending" *ngIf="!member.isAdmin && !member.uid">
-              Not Verified
+              Not Verified | <button type="button" (click)="onRemind(member)">Remind</button>
             </span>
 
           </div>
