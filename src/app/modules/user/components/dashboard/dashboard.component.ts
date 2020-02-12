@@ -52,9 +52,12 @@ export class DashboardComponent implements OnInit {
     if (!this.memberExists(this.member.phone)) {
       this.userService.createMember(this.member)
         .then(res => {
-          this.smsService.sendSms({ to: this.member.phone, message: this.user.fullName+' wants you to play the Phone Chhodo, Dil Jodo contest. Follow link to register: '+environment.baseUrl+'/sign-up/by-invite/'+res.key+' Hurry, you’re just a few steps away!' })
+          // console.log({ to: this.member.phone, message: this.user.fullName + ' wants you to play the Phone Chhodo, Dil Jodo contest. Follow link to register: '+environment.baseUrl+'/sign-up/by-invite/'+res.key+' Hurry, you’re just a few steps away!' });
+          // return false;
+          this.smsService.sendSms({ to: this.member.phone, message: this.user.fullName + ' wants you to play the Phone Chhodo, Dil Jodo contest. Follow link to register: '+environment.baseUrl+'/sign-up/by-invite/'+res.key+' Hurry, you\'re just a few steps away!' })
             .subscribe(
               (res) => {
+                //console.log(res);
                 this.toastrService.success('Invitation sent successfully.', 'Invite');
                 this.member = new GroupMember();
               },
