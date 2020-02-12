@@ -35,7 +35,7 @@
                         {{ player.status }}
                     </span>
 
-                    <span class="remark rem_pending join_btn_" *ngIf="!player.status && player.uid == user.uid">
+                    <span class="remark rem_pending join_btn_" *ngIf="!isAdmin && player.uid == user.uid">
                         <button type="button" (click)="onJoin()" class="verify_btn">
                             Join Now <i class="fa fa-caret-right"></i>
                         </button>
