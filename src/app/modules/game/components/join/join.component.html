@@ -11,22 +11,23 @@
 <app-menu></app-menu>
 
 <div class="wrapper regi_bg">
-    
+
     <app-header [centerLogo]="false"></app-header>
 
     <div class="container">
         <div class="logo_main text-center">
             <a routerLink="/">
 
-              <img src="assets/img/PhoneChhodoDilJodo.svg" class="img-fluid" alt="">
+                <img src="assets/img/PhoneChhodoDilJodo.svg" class="img-fluid" alt="">
             </a>
-          </div>
+        </div>
         <div class="main row">
-            <app-my-score [group]="group" [user]="user" class="family_patch regi_fami_patch col-10 offset-1"></app-my-score>
+            <app-my-score [group]="group" [user]="user" class="family_patch regi_fami_patch col-10 offset-1">
+            </app-my-score>
             <div class="col-10 offset-1">
                 <div class="form-group col-12" *ngFor="let player of players">
                     <div class="name_prefilled form-control">{{ player.name }}</div>
-                    
+
                     <span class="remark" [ngClass]="{
                 'rem_success':  player.status  === 'online',
                 'reg_admin': player.status  === 'away',
@@ -36,7 +37,8 @@
                     </span>
 
                     <span class="remark rem_pending join_btn_" *ngIf="!player.status">
-                        <button type="button" (click)="onJoin()" class="verify_btn" *ngIf="!isAdmin && player.uid == user.uid">
+                        <button type="button" (click)="onJoin()" class="verify_btn"
+                            *ngIf="!isAdmin && player.uid == user.uid">
                             Join Now <i class="fa fa-caret-right"></i>
                         </button>
                     </span>
@@ -51,9 +53,16 @@
                         <p>&nbsp;</p>
                     </div>
                 </div> -->
+                <div>
+                    <div class="row">
+                        <div class="col-12 padd_r0 text-center text-danger">
+                            {{ errorContent }}
+                        </div>
+                    </div>
+                </div>
                 <ul class="join_game_txt">
                     Game instructions:
-                    <li>  Keep your mobile on the flat surface and join the game.</li>
+                    <li> Keep your mobile on the flat surface and join the game.</li>
 
                     <li> Wait your admin to start the game</li>
 

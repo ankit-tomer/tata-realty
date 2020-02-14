@@ -52,14 +52,14 @@ export class MyScoreComponent implements OnInit {
         return b.totalScore - a.totalScore;
       });
       this.groups = groups;
-      console.log(groups);
+      //console.log(groups);
       let pos: number = 0;
       for (let group of this.groups) {
-        console.log(this.group.key);
+        //console.log(this.group.key);
         pos++;
         if (group.name == this.group.name && group.uid == this.group.uid) {
           this.currentPosition = pos;
-          console.log(pos);
+          //console.log(pos);
           //return false;
         }
       }

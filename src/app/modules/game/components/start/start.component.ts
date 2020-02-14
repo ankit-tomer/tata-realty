@@ -19,6 +19,8 @@ export class StartComponent implements OnInit, OnDestroy {
 
   timerConfig: countUpTimerConfigModel;
   game: Game;
+  players: Player[];
+  count: number = 1;
   group: Group;
 
   user: User;
@@ -91,7 +93,7 @@ export class StartComponent implements OnInit, OnDestroy {
                 endedById: this.user.uid,
                 endedByName: this.player.name,
                 score: this.countupTimerService.timerValue.hours + ':' + this.countupTimerService.timerValue.mins + ':' + this.countupTimerService.timerValue.seconds,
-                scoreSeconds: this.countupTimerService.totalSeconds
+                scoreSeconds: (this.countupTimerService.totalSeconds * this.count)
               }
 
               let totalScore: number = 0;
@@ -154,6 +156,27 @@ export class StartComponent implements OnInit, OnDestroy {
       }
       else {
         this.groupScore = 0;
+      }
+    });
+  }
+
+  getPlayers() {
+    this.gameService.getPlayers(this.game.key).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(players => {
+      // console.log(players)
+      this.players = players;
+
+      this.count = 1;
+
+      for (let player of players) {
+        if (player.status) {
+          this.count++;
+        }
       }
     });
   }

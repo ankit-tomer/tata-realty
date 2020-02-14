@@ -7,6 +7,8 @@ export class Game {
     endedById: string;
     endedByName: string;
     createdAt: Date|null;
+    lat: number;
+    lon: number;
 }
 
 export class Player {

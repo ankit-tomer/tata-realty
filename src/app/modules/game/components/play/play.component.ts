@@ -31,6 +31,8 @@ export class PlayComponent implements OnInit {
 
   noSleep: NoSleep;
 
+  errorContent: string = '';
+
   constructor(private authService: AuthService, private userService: UserService, private gameService: GameService, private router: Router, private route: ActivatedRoute, private presence: PresencessService) {
     this.game = new Game();
     this.user = new User();
@@ -65,7 +67,7 @@ export class PlayComponent implements OnInit {
           this.userService.getGroupsbyUid(this.game.uid).valueChanges().subscribe(groups => {
             this.group = groups[0];
           });
- 
+
           switch (this.game.status) {
             case 'created':
 
@@ -100,7 +102,7 @@ export class PlayComponent implements OnInit {
       let count: number = 0;
 
       for (let player of players) {
-        player.gameUrl = environment.baseUrl+'/game/join/'+player.gameId+'/'+player.key;
+        player.gameUrl = environment.baseUrl + '/game/join/' + player.gameId + '/' + player.key;
         if (player.status == 'online') {
           count++;
         }
@@ -121,12 +123,14 @@ export class PlayComponent implements OnInit {
     this.presence.noSleep.enable();
     this.presence.setOrientation().then(data => {
       this.gameService.startGame(this.game.key, { status: 'prepared' })
-      .then(res => {
-        this.router.navigate(['/game/prepare/' + this.game.key + '/' + this.playerId]);
-        console.log('prepared');
-      }, err => {
-        //console.log(err);
-      });
+        .then(res => {
+          this.router.navigate(['/game/prepare/' + this.game.key + '/' + this.playerId]);
+          console.log('prepared');
+        }, err => {
+
+        });
+    }, err => {
+      this.errorContent = 'You need to provide all the neccessory permission to start the game, please read rules & regulations carefully.'
     });
   }
 

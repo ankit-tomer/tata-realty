@@ -27,11 +27,13 @@ export class JoinComponent implements OnInit {
   player: Player;
   playerId: string;
 
+  errorContent: string = '';
+
   constructor(private authService: AuthService, private userService: UserService, private gameService: GameService, private router: Router, private route: ActivatedRoute, private presence: PresencessService) {
     this.game = new Game();
     this.user = new User();
     this.group = new Group();
-    this.player = new Player();    
+    this.player = new Player();
   }
 
   ngOnInit() {
@@ -41,8 +43,14 @@ export class JoinComponent implements OnInit {
       if (params.get('id')) {
         this.playerId = params.get('player');
 
+        console.log(this.user);
         this.gameService.getPlayer(this.playerId).valueChanges().subscribe(player => {
           this.player = player;
+          console.log(this.player);
+          if(this.user.uid != this.player.uid) {
+            this.router.navigate(['/not-found']);
+            return false;
+          }
         });
 
         this.gameService.getGame(params.get('id')).valueChanges().subscribe(game => {
@@ -58,7 +66,7 @@ export class JoinComponent implements OnInit {
           this.userService.getGroupsbyUid(this.game.uid).valueChanges().subscribe(groups => {
             this.group = groups[0];
           });
- 
+
           switch (this.game.status) {
             case 'created':
 
@@ -110,13 +118,37 @@ export class JoinComponent implements OnInit {
   }
 
   onJoin() {
-    this.presence.noSleep.enable();
-    this.presence.playerId = this.playerId;
-    this.presence.setPresence('online');
-    this.presence.setOrientation().then(data => {
-      // console.log(data +':'+ this.presence.orientation);
-      // alert(this.presence.orientation.y +':'+ this.presence.orientation.z);
-      this.router.navigate(['/game/play/' + this.game.key + '/' + this.playerId]);
-    });
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.locationSuccess.bind(this), this.locationError.bind(this));
+    } else {
+      this.errorContent = 'Geolocation is not supported by this browser.';
+    }
+  }
+
+  locationSuccess(position: any) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+
+    // console.log(lat.toFixed(1) +':'+ lon.toFixed(1));
+    // console.log(this.game.lat.toFixed(1) +':'+ this.game.lon.toFixed(1));
+
+    if (lat.toFixed(1) == this.game.lat.toFixed(1) && lon.toFixed(1) == this.game.lon.toFixed(1)) {
+      //console.log('ok');
+      this.presence.noSleep.enable();
+      this.presence.setOrientation().then(data => {
+        this.presence.playerId = this.playerId;
+        this.presence.setPresence('online');
+        this.router.navigate(['/game/play/' + this.game.key + '/' + this.playerId]);
+      }, err => {
+        this.errorContent = 'You need to provide all the neccessory permission to join the game, please read game instructions carefully.'
+      });
+    }
+    else {
+      this.errorContent = 'You need to at the same location as the game admin to play this game.'
+    }
+  }
+
+  locationError() {
+    this.errorContent = 'You need to provide all the neccessory permission to join the game, please read game instructions carefully.'
   }
 }

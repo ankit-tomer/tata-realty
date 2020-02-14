@@ -29,6 +29,8 @@ export class DashboardComponent implements OnInit {
   gameId: string;
   adminPlayerId: string;
 
+  errorContent: string = '';
+
   constructor(private authService: AuthService, private userService: UserService, public toastrService: ToastrService, private gameService: GameService, private router: Router, private presence: PresencessService, private smsService: SmsService) {
     this.member = new GroupMember();
     this.group = new Group();
@@ -167,15 +169,28 @@ export class DashboardComponent implements OnInit {
   }
 
   onPlay() {
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.locationSuccess.bind(this), this.locationError.bind(this));
+    } else {
+      this.errorContent = 'Geolocation is not supported by this browser.';
+    }
+  }
+
+  locationSuccess(position: any) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+
     let createdAt: Date = new Date();
     let game: Game = new Game();
     game.uid = this.user.uid;
     game.status = 'created';
     game.createdAt = createdAt;
+    game.lat = lat;
+    game.lon = lon;
 
     this.gameService.createGame(game)
       .then(res => {
-
         this.gameId = res.key;
 
         for (var member of this.groupMembers) {
@@ -210,8 +225,6 @@ export class DashboardComponent implements OnInit {
                       }
                     );
                 }
-
-
               }, err => {
                 //console.log(err);
               });
@@ -223,6 +236,10 @@ export class DashboardComponent implements OnInit {
       }, err => {
         //console.log(err);
       });
+  }
+
+  locationError() {
+    this.errorContent = 'You need to provide all the neccessory permission to join the game, please read game instructions carefully.';
   }
 
   goToGamePlay() {
