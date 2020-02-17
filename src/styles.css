@@ -530,6 +530,38 @@ div.form-control{
     text-align: right;
 }
 
+.remid_btn{
+	position: absolute;
+	top: 0;
+	left: -87%;
+	border-radius: 50px;
+	box-shadow: none;
+	border: 1px solid #8c8989;
+	color:#8c8989;
+	background:#fff;
+	padding: 4px 15px;
+	bottom: 0;
+	margin: auto;
+	height: 28px;
+}
+
+.red_alrt{
+	background: #dc413c;
+	color:#fff;
+	padding:15px;
+}
+
+.red_alrt .sym_icon{
+	width:50px;
+	height:50px;
+	float:left
+}
+
+.red_alrt .txt{
+	margin-left: 60px;
+	text-align: left;
+}
+
 .join_btn_{
 	width: 150px;
     right: 20px;
