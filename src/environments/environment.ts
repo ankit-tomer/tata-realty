@@ -4,7 +4,7 @@
 
 export const environment = {
   apiUrl: 'http://localhost/api',
-  baseUrl: 'https://upcomingprojects.in',
+  baseUrl: 'https://192.168.29.223:4200',
   production: false,
   firebase: {
     apiKey: "AIzaSyAnOi89mP1OaQn6mzlBQ5GQSpqupB-6mSA",

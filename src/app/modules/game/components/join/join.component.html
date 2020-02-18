@@ -53,39 +53,33 @@
                         <p>&nbsp;</p>
                     </div>
                 </div> -->
-                <div>
+                <div *ngIf="errorContent && errorContent != ''">
                     <div class="row">
-                        div class="col-12 text-center text-danger">
                         <div class="red_alrt">
                             <div class="sym_icon">
                                 <img src="assets/img/excm_icon.png" class="img-fluid" alt="">
                             </div>
                             <div class="txt">
-                                Lorem ipsum is a placeholder text commonly used to demonstrate the visual form
-
                                 {{ errorContent }}
                             </div>
-                            </div>
-                            
-                            
                         </div>
                     </div>
                 </div>
-                <ul class="join_game_txt">
-                    Game instructions:
-                    <li> Keep your mobile on the flat surface and join the game.</li>
-
-                    <li> Wait your admin to start the game</li>
-
-                    <li> If you lift the phone game will end.</li>
-
-                    <li>If you toggle the game browser game will end.</li>
-
-                    <li>If you answer a call game will end.</li>
-
-                    <li>If mobile goes out of battery life game will end.</li>
-                </ul>
             </div>
+            <ul class="join_game_txt">
+                Game instructions:
+                <li> Keep your mobile on the flat surface and join the game.</li>
+
+                <li> Wait your admin to start the game</li>
+
+                <li> If you lift the phone game will end.</li>
+
+                <li>If you toggle the game browser game will end.</li>
+
+                <li>If you answer a call game will end.</li>
+
+                <li>If mobile goes out of battery life game will end.</li>
+            </ul>
         </div>
     </div>
 </div>

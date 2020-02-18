@@ -169,7 +169,6 @@ export class DashboardComponent implements OnInit {
   }
 
   onPlay() {
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.locationSuccess.bind(this), this.locationError.bind(this));
     } else {
@@ -239,6 +238,7 @@ export class DashboardComponent implements OnInit {
   }
 
   locationError() {
+    //console.log('permi');
     this.errorContent = 'You need to provide all the neccessory permission to join the game, please read game instructions carefully.';
   }
 

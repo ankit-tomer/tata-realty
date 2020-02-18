@@ -47,7 +47,7 @@ export class JoinComponent implements OnInit {
         this.gameService.getPlayer(this.playerId).valueChanges().subscribe(player => {
           this.player = player;
           console.log(this.player);
-          if(this.user.uid != this.player.uid) {
+          if (this.user.uid != this.player.uid) {
             this.router.navigate(['/not-found']);
             return false;
           }
@@ -118,34 +118,48 @@ export class JoinComponent implements OnInit {
   }
 
   onJoin() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.locationSuccess.bind(this), this.locationError.bind(this));
-    } else {
-      this.errorContent = 'Geolocation is not supported by this browser.';
-    }
+
+    this.presence.noSleep.enable();
+    this.presence.setOrientation().then(data => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.locationSuccess.bind(this), this.locationError.bind(this));
+      } else {
+        this.errorContent = 'Geolocation is not supported by this browser.';
+      }
+    }, err => {
+      this.errorContent = 'You need to provide all the neccessory permission to join the game, please read game instructions carefully.'
+    });
   }
 
   locationSuccess(position: any) {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
 
-    // console.log(lat.toFixed(1) +':'+ lon.toFixed(1));
-    // console.log(this.game.lat.toFixed(1) +':'+ this.game.lon.toFixed(1));
-
     if (lat.toFixed(1) == this.game.lat.toFixed(1) && lon.toFixed(1) == this.game.lon.toFixed(1)) {
-      //console.log('ok');
-      this.presence.noSleep.enable();
-      this.presence.setOrientation().then(data => {
-        this.presence.playerId = this.playerId;
-        this.presence.setPresence('online');
-        this.router.navigate(['/game/play/' + this.game.key + '/' + this.playerId]);
-      }, err => {
-        this.errorContent = 'You need to provide all the neccessory permission to join the game, please read game instructions carefully.'
-      });
+      this.presence.playerId = this.playerId;
+      this.presence.setPresence('online');
+      this.router.navigate(['/game/play/' + this.game.key + '/' + this.playerId]);
     }
     else {
       this.errorContent = 'You need to at the same location as the game admin to play this game.'
     }
+    // console.log(lat.toFixed(1) +':'+ lon.toFixed(1));
+    // console.log(this.game.lat.toFixed(1) +':'+ this.game.lon.toFixed(1));
+
+    // if (lat.toFixed(1) == this.game.lat.toFixed(1) && lon.toFixed(1) == this.game.lon.toFixed(1)) {
+    //   this.presence.noSleep.enable();
+    //   this.presence.setOrientation().then(data => {
+    //     this.presence.playerId = this.playerId;
+    //     this.presence.setPresence('online');
+    //     this.router.navigate(['/game/play/' + this.game.key + '/' + this.playerId]);
+    //   }, err => {
+    //     alert(err);
+    //     this.errorContent = 'You need to provide all the neccessory permission to join the game, please read game instructions carefully.'
+    //   });
+    // }
+    // else {
+    //   this.errorContent = 'You need to at the same location as the game admin to play this game.'
+    // }
   }
 
   locationError() {
